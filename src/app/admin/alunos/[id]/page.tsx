@@ -11,6 +11,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { ArrowLeft, Mail, Phone, MapPin, Calendar, Dumbbell, CreditCard } from 'lucide-react'
 import { AlunoStatusForm } from './aluno-status-form'
 
+export const dynamic = 'force-dynamic'
+
 const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
   ATIVO: 'success',
   INATIVO: 'warning',

@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Calendar } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const diasSemana = ['Domingo', 'Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado']
 
 export default async function AulasPage() {

@@ -8,6 +8,8 @@ import { formatDate, formatCurrency } from '@/lib/utils'
 import { CreditCard } from 'lucide-react'
 import { CobrancaActions } from './cobranca-actions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function CobrancasPage() {
   const session = await getSession()
   if (!session) redirect('/login')

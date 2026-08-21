@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Dumbbell } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
   ATIVO: 'success',
   PAUSADO: 'warning',

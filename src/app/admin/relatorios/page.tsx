@@ -6,6 +6,8 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, Dumbbell, Calendar, DollarSign, TrendingUp, CheckCircle } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function RelatoriosPage() {
   const session = await getSession()
   if (!session) redirect('/login')

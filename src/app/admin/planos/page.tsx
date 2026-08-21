@@ -10,6 +10,8 @@ import { ClipboardList, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { PlanoActions } from './plano-actions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PlanosPage() {
   const session = await getSession()
   if (!session) redirect('/login')

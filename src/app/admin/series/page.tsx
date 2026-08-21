@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { List } from 'lucide-react'
 import { SerieActions } from './serie-actions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function SeriesPage() {
   const session = await getSession()
   if (!session) redirect('/login')

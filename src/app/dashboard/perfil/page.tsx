@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PerfilPage() {
   const session = await getSession()
   if (!session) redirect('/login')

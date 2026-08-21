@@ -9,6 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { Calendar, Clock, Plus, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const statusConfig: Record<string, { label: string; variant: 'default' | 'success' | 'destructive' | 'warning' | 'info' | 'outline' }> = {
   AGENDADO: { label: 'Agendado', variant: 'info' },
   CONFIRMADO: { label: 'Confirmado', variant: 'success' },

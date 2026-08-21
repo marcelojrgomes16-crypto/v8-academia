@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Dumbbell } from 'lucide-react'
 import { ExercicioActions } from './exercicio-actions'
 
+export const dynamic = 'force-dynamic'
+
 const gruposMusculares = [
   'Peito', 'Costas', 'Ombros', 'Biceps', 'Triceps', 'Antebracos',
   'Abdomen', 'Gluteos', 'Quadriceps', 'Isquiotibiais', 'Panturrilha',

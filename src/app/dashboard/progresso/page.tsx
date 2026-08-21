@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProgressoPage() {
   const session = await getSession()
   if (!session) redirect('/login')

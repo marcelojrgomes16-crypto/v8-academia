@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Settings } from 'lucide-react'
 import { ConfiguracaoForm } from './configuracao-form'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ConfiguracoesPage() {
   const session = await getSession()
   if (!session) redirect('/login')

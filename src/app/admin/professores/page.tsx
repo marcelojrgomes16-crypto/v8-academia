@@ -6,6 +6,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
+export const dynamic = 'force-dynamic'
+
 const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
   ATIVO: 'success',
   INATIVO: 'warning',

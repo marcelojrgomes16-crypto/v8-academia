@@ -8,6 +8,8 @@ import { formatDate, formatCurrency } from '@/lib/utils'
 import { Wallet } from 'lucide-react'
 import { DespesaActions } from './despesa-actions'
 
+export const dynamic = 'force-dynamic'
+
 const categorias = [
   'Aluguel', 'Energia', 'Agua', 'Funcionarios', 'Equipamentos', 'Manutencao', 'Marketing', 'Impostos', 'Outros',
 ]

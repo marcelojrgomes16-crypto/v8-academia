@@ -8,6 +8,8 @@ import { formatDate, formatCurrency } from '@/lib/utils'
 import { UserCheck } from 'lucide-react'
 import { FuncionarioActions } from './funcionario-actions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function FuncionariosPage() {
   const session = await getSession()
   if (!session) redirect('/login')

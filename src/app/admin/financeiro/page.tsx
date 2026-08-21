@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { DollarSign, TrendingUp, Clock, CheckCircle } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const pagamentoStatusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
   PAGO: 'success',
   PENDENTE: 'warning',

@@ -8,6 +8,8 @@ import { formatDate, formatCurrency } from '@/lib/utils'
 import { DollarSign } from 'lucide-react'
 import { ReceitaActions } from './receita-actions'
 
+export const dynamic = 'force-dynamic'
+
 const categorias = [
   'Mensalidade', 'Matricula', 'Personal', 'Avaliacao', 'Venda', 'Outros',
 ]

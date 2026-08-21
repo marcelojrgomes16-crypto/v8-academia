@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Search, Plus, Filter } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
   ATIVO: 'success',
   INATIVO: 'warning',

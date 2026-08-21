@@ -10,6 +10,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Dumbbell, Calendar, TrendingUp, Clock } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const session = await getSession()
   if (!session) redirect('/login')

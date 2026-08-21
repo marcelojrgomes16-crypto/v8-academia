@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { formatDateTime } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
 export default async function RelatorioPresencasPage() {
   const session = await getSession()
   if (!session) redirect('/login')
