@@ -1,0 +1,13 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1792ms
+ ○ Compiling /api/auth/signin ...
+ ✓ Compiled /api/auth/signin in 890ms (141 modules)
+ POST /api/auth/signin 200 in 3410ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 5.1s (905 modules)
+ GET /dashboard 200 in 5475ms
+ ✓ Compiled in 486ms (385 modules)

@@ -1,0 +1,44 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 551ms (72 modules)
+ ○ Compiling /api/auth/signin ...
+ ✓ Compiled /api/auth/signin in 793ms (141 modules)
+ POST /api/auth/signin 200 in 3288ms
+ POST /api/auth/signin 200 in 276ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 8.1s (905 modules)
+ GET /admin 200 in 8591ms
+ ✓ Compiled in 585ms (386 modules)
+ ○ Compiling /login ...
+ ✓ Compiled /login in 2.2s (844 modules)
+ ✓ Compiled in 257ms (482 modules)
+ GET /login 200 in 161ms
+ ✓ Compiled /api/auth/session in 139ms (392 modules)
+ GET /api/auth/session 200 in 3204ms
+ GET /api/auth/session 200 in 49ms
+ ✓ Compiled /api/auth/signin in 318ms (479 modules)
+ POST /api/auth/signin 200 in 3589ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 767ms (964 modules)
+ GET /dashboard 404 in 1004ms
+ GET /api/auth/session 200 in 29ms
+ GET /api/auth/session 200 in 45ms
+ ✓ Compiled in 397ms (484 modules)
+ GET /dashboard 404 in 93ms
+ GET /api/auth/session 200 in 29ms
+ GET /api/auth/session 200 in 24ms
+ ✓ Compiled in 574ms (482 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 759ms (847 modules)
+ GET /dashboard 404 in 112ms
+ ✓ Compiled /api/auth/session in 120ms (393 modules)
+ GET /api/auth/session 200 in 1928ms
+ GET /api/auth/session 200 in 28ms
+ ✓ Compiled /api/auth/signin in 231ms (480 modules)
+ POST /api/auth/signin 200 in 2542ms
+ GET /dashboard 404 in 158ms

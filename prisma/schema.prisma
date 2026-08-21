@@ -1,0 +1,363 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ALUNO
+  PROFESSOR
+  ADMIN
+}
+
+enum UserStatus {
+  ATIVO
+  INATIVO
+  BLOQUEADO
+  PENDENTE
+}
+
+enum TreinoStatus {
+  ATIVO
+  CONCLUIDO
+  PAUSADO
+  CANCELADO
+}
+
+enum AgendamentoStatus {
+  AGENDADO
+  CONFIRMADO
+  CANCELADO
+  CONCLUIDO
+  FALTOU
+}
+
+model Usuario {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  cpf           String?   @unique
+  nome          String
+  senhaHash     String?
+  role          UserRole  @default(ALUNO)
+  status        UserStatus @default(PENDENTE)
+  avatarUrl     String?
+  telefone      String?
+  dataNascimento DateTime?
+  endereco      Json?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  aluno         Aluno?
+  professor     Professor?
+  admin         Admin?
+  treinos       Treino[]          @relation("TreinoAluno")
+  treinosCriados Treino[]         @relation("TreinoProfessor")
+  agendamentosComoAluno Agendamento[] @relation("AgendamentoAluno")
+  agendamentosComoProfessor Agendamento[] @relation("AgendamentoProfessor")
+  avaliacoesComoAluno AvaliacaoFisica[] @relation("AvaliacaoAluno")
+  avaliacoesComoProfessor AvaliacaoFisica[] @relation("AvaliacaoProfessor")
+  aulas         Aula[]            @relation("AulaProfessor")
+  checkins      Checkin[]
+  pagamentos    Pagamento[]
+  notificacoes  Notificacao[]
+  funcionario   Funcionario?
+  cobrancas     Cobranca[]
+
+  @@index([email])
+  @@index([cpf])
+  @@index([role])
+}
+
+model Aluno {
+  id              String   @id @default(cuid())
+  usuarioId       String   @unique
+  usuario         Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  matricula       String   @unique
+  planoId         String?
+  plano           Plano?   @relation(fields: [planoId], references: [id])
+  dataMatricula   DateTime @default(now())
+  dataVencimento  DateTime?
+  observacoes     String?
+  objetivo        String?
+  restricoes      String?
+  professorId     String?
+  professor       Professor? @relation("ProfessorAlunos", fields: [professorId], references: [id])
+
+  @@index([matricula])
+  @@index([planoId])
+}
+
+model Professor {
+  id              String   @id @default(cuid())
+  usuarioId       String   @unique
+  usuario         Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  cref            String   @unique
+  especialidades  Json     // String[] stored as JSON
+  bio             String?
+  alunos          Aluno[]  @relation("ProfessorAlunos")
+
+  @@index([cref])
+}
+
+model Admin {
+  id            String  @id @default(cuid())
+  usuarioId     String  @unique
+  usuario       Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  permissoes    Json    // String[] stored as JSON
+}
+
+model Plano {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String?
+  preco       Float    // Decimal not supported in SQLite
+  duracaoDias Int
+  features    Json     // String[] stored as JSON
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  alunos      Aluno[]
+  pagamentos  Pagamento[]
+}
+
+model Treino {
+  id           String       @id @default(cuid())
+  nome         String
+  descricao    String?
+  alunoId      String
+  aluno        Usuario      @relation("TreinoAluno", fields: [alunoId], references: [id], onDelete: Cascade)
+  professorId  String
+  professor    Usuario      @relation("TreinoProfessor", fields: [professorId], references: [id])
+  status       TreinoStatus @default(ATIVO)
+  dataInicio   DateTime
+  dataFim      DateTime?
+  diasSemana   Json         // Int[] stored as JSON
+  exercicios   ExercicioTreino[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([alunoId])
+  @@index([professorId])
+  @@index([status])
+}
+
+model ExercicioTreino {
+  id        String   @id @default(cuid())
+  treinoId  String
+  treino    Treino   @relation(fields: [treinoId], references: [id], onDelete: Cascade)
+  exercicioId String
+  exercicio Exercicio @relation(fields: [exercicioId], references: [id])
+  series    Int
+  repeticoes String
+  carga     String?
+  descanso  Int?
+  ordem     Int
+  observacoes String?
+
+  @@index([treinoId])
+}
+
+model Exercicio {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String?
+  grupoMuscular String
+  equipamento String?
+  videoUrl    String?
+  imagemUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  treinos     ExercicioTreino[]
+  series      Serie[]
+}
+
+model Agendamento {
+  id            String            @id @default(cuid())
+  alunoId       String
+  aluno         Usuario           @relation("AgendamentoAluno", fields: [alunoId], references: [id], onDelete: Cascade)
+  professorId   String?
+  professor     Usuario?          @relation("AgendamentoProfessor", fields: [professorId], references: [id])
+  aulaId        String?
+  aula          Aula?             @relation(fields: [aulaId], references: [id])
+  dataHora      DateTime
+  status        AgendamentoStatus @default(AGENDADO)
+  observacoes   String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([alunoId])
+  @@index([professorId])
+  @@index([dataHora])
+  @@index([status])
+}
+
+model Aula {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String?
+  professorId String
+  professor   Usuario  @relation("AulaProfessor", fields: [professorId], references: [id])
+  diaSemana   Int
+  horaInicio  String
+  horaFim     String
+  maxAlunos   Int
+  ativa       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agendamentos Agendamento[]
+}
+
+model AvaliacaoFisica {
+  id              String   @id @default(cuid())
+  alunoId         String
+  aluno           Usuario  @relation("AvaliacaoAluno", fields: [alunoId], references: [id], onDelete: Cascade)
+  professorId     String
+  professor       Usuario  @relation("AvaliacaoProfessor", fields: [professorId], references: [id])
+  data            DateTime @default(now())
+  peso            Float    // Decimal not supported in SQLite
+  altura          Float    // Decimal not supported in SQLite
+  imc             Float    // Decimal not supported in SQLite
+  percentualGordura Float? // Decimal not supported in SQLite
+  massaMuscular   Float?   // Decimal not supported in SQLite
+  medidas         Json?
+  observacoes     String?
+  createdAt       DateTime @default(now())
+
+  @@index([alunoId])
+  @@index([data])
+}
+
+model Checkin {
+  id        String   @id @default(cuid())
+  alunoId   String
+  aluno     Usuario  @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  dataHora  DateTime @default(now())
+  tipo      String   @default("ENTRADA")
+
+  @@index([alunoId])
+  @@index([dataHora])
+}
+
+model Pagamento {
+  id              String   @id @default(cuid())
+  alunoId         String
+  aluno           Usuario  @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  planoId         String
+  plano           Plano    @relation(fields: [planoId], references: [id])
+  valor           Float    // Decimal not supported in SQLite
+  status          String   @default("PENDENTE")
+  metodo          String?
+  dataPagamento   DateTime?
+  dataVencimento  DateTime
+  transactionId   String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([alunoId])
+  @@index([status])
+  @@index([dataVencimento])
+}
+
+model Notificacao {
+  id        String   @id @default(cuid())
+  usuarioId String
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  titulo    String
+  mensagem  String
+  tipo      String
+  lida      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@index([usuarioId])
+  @@index([lida])
+}
+
+model Configuracao {
+  id    String @id @default(cuid())
+  chave String @unique
+  valor String
+  tipo  String @default("STRING")
+}
+
+model Funcionario {
+  id            String    @id @default(cuid())
+  usuarioId     String    @unique
+  usuario       Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  cargo         String
+  salario       Float?
+  dataAdmissao  DateTime  @default(now())
+  observacoes   String?
+
+  @@index([usuarioId])
+}
+
+model Receita {
+  id            String   @id @default(cuid())
+  descricao     String
+  valor         Float
+  categoria     String
+  data          DateTime @default(now())
+  pagamentoId   String?
+  observacoes   String?
+  createdAt     DateTime @default(now())
+
+  @@index([data])
+  @@index([categoria])
+}
+
+model Despesa {
+  id            String   @id @default(cuid())
+  descricao     String
+  valor         Float
+  categoria     String
+  data          DateTime @default(now())
+  fornecedor    String?
+  observacoes   String?
+  createdAt     DateTime @default(now())
+
+  @@index([data])
+  @@index([categoria])
+}
+
+model Cobranca {
+  id            String   @id @default(cuid())
+  alunoId       String
+  aluno         Usuario  @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  valor         Float
+  descricao     String
+  dataVencimento DateTime
+  dataPagamento DateTime?
+  status        String   @default("PENDENTE")
+  observacoes   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([alunoId])
+  @@index([status])
+  @@index([dataVencimento])
+}
+
+model Serie {
+  id            String   @id @default(cuid())
+  nome          String
+  descricao     String?
+  exercicioId   String
+  exercicio     Exercicio @relation(fields: [exercicioId], references: [id])
+  series        Int
+  repeticoes    String
+  carga         String?
+  descanso      Int?
+  ordem         Int
+  observacoes   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([exercicioId])
+}

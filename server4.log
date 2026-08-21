@@ -1,0 +1,53 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1937ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1048ms (72 modules)
+ ○ Compiling /api/auth/signin ...
+ ✓ Compiled /api/auth/signin in 1724ms (161 modules)
+prisma:error Cannot read properties of undefined (reading 'indexOf')
+Signin error: TypeError: Cannot read properties of undefined (reading 'indexOf')
+    at bindings.getFileName (webpack-internal:///(rsc)/./node_modules/bindings/bindings.js:178:16)
+    at bindings (webpack-internal:///(rsc)/./node_modules/bindings/bindings.js:82:48)
+    at new Database (webpack-internal:///(rsc)/./node_modules/@prisma/adapter-better-sqlite3/node_modules/better-sqlite3/lib/database.js:48:125)
+    at createBetterSQLite3Client (webpack-internal:///(rsc)/./node_modules/@prisma/adapter-better-sqlite3/dist/index.mjs:630:14)
+    at PrismaBetterSqlite3AdapterFactory.connect (webpack-internal:///(rsc)/./node_modules/@prisma/adapter-better-sqlite3/dist/index.mjs:618:59)
+    at e.connect (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:57:311)
+    at #l (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:57:13092)
+    at C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:57:12429
+    at Object.runInChildSpan (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:2516)
+    at pi.runInChildSpan (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:2850)
+    at #a (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:57:12367)
+    at Ut.request (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:58:1995)
+    at Object.singleLoader (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:6595)
+    at Br.request (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:4313)
+    at Jr.request (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:7197)
+    at t._executeRequest (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:100:58)
+    at Zo (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:11:9615)
+    at a (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:99:6868)
+    at C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:99:7279
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:99:7259
+    at Object.runInChildSpan (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:2516)
+    at pi.runInChildSpan (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:2850)
+    at t._request (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:99:7182)
+    at e._createPrismaPromise.action (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:11:5280)
+    at o (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:1022)
+    at Proxy.then (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\@prisma\client\runtime\client.js:65:1118)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  clientVersion: '7.9.1'
+}
+ POST /api/auth/signin 500 in 3332ms
+ ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ⚠ Invalid next.config.js options detected: 
+ ⚠     Unrecognized key(s) in object: 'serverExternalPackages'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ✓ Ready in 1733ms

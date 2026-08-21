@@ -1,0 +1,262 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1649ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 634ms (72 modules)
+ ○ Compiling /api/auth/signin ...
+ ✓ Compiled /api/auth/signin in 1271ms (141 modules)
+ POST /api/auth/signin 200 in 3613ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 12.1s (905 modules)
+ GET /dashboard 200 in 12638ms
+ ✓ Compiled in 575ms (385 modules)
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 6.6s (893 modules)
+ GET /admin 200 in 7037ms
+ POST /api/auth/signin 200 in 677ms
+ GET /dashboard 200 in 146ms
+ ✓ Compiled /api/auth/session in 388ms (522 modules)
+ GET /api/auth/session 200 in 499ms
+ GET /api/auth/session 200 in 43ms
+ ✓ Compiled /api/auth/logout in 352ms (524 modules)
+ POST /api/auth/logout 200 in 483ms
+ ○ Compiling / ...
+ ✓ Compiled / in 537ms (899 modules)
+ GET / 307 in 760ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3.4s (1093 modules)
+ GET /login 200 in 4349ms
+ GET /api/auth/session 200 in 27ms
+ GET /api/auth/session 200 in 12ms
+ POST /api/auth/signin 200 in 380ms
+ GET /dashboard 200 in 116ms
+ GET /api/auth/session 200 in 27ms
+ GET /api/auth/session 200 in 23ms
+ ○ Compiling /admin/financeiro ...
+ ✓ Compiled /admin/financeiro in 797ms (1092 modules)
+ POST /api/auth/logout 200 in 51ms
+ GET / 307 in 190ms
+ GET /login 200 in 200ms
+ GET /api/auth/session 200 in 20ms
+ GET /api/auth/session 200 in 21ms
+ ✓ Compiled /_not-found in 1567ms (966 modules)
+ GET /gym-bg.jpg 404 in 665ms
+ ✓ Compiled in 797ms (977 modules)
+ ✓ Compiled in 409ms (977 modules)
+ ✓ Compiled in 366ms (476 modules)
+ ✓ Compiled in 483ms (476 modules)
+ ✓ Compiled in 469ms (977 modules)
+ ✓ Compiled in 585ms (977 modules)
+ ✓ Compiled in 369ms (977 modules)
+ ✓ Compiled in 347ms (977 modules)
+ ✓ Compiled in 443ms (977 modules)
+ ✓ Compiled in 378ms (977 modules)
+ ✓ Compiled in 336ms (977 modules)
+ ✓ Compiled in 618ms (977 modules)
+ ✓ Compiled in 316ms (977 modules)
+ ✓ Compiled in 379ms (977 modules)
+ ✓ Compiled in 210ms (476 modules)
+ ✓ Compiled in 201ms (476 modules)
+ ✓ Compiled in 203ms (476 modules)
+ ✓ Compiled in 225ms (476 modules)
+ ✓ Compiled in 241ms (476 modules)
+ ✓ Compiled in 177ms (476 modules)
+ ✓ Compiled in 164ms (476 modules)
+ ✓ Compiled in 169ms (476 modules)
+ ✓ Compiled in 177ms (476 modules)
+ ✓ Compiled in 216ms (476 modules)
+ ✓ Compiled in 220ms (476 modules)
+ ✓ Compiled in 156ms (476 modules)
+ ✓ Compiled in 270ms (476 modules)
+ ✓ Compiled in 209ms (476 modules)
+ ✓ Compiled in 161ms (476 modules)
+ ✓ Compiled in 175ms (476 modules)
+ ✓ Compiled in 608ms (977 modules)
+ ✓ Compiled in 437ms (977 modules)
+ ✓ Compiled in 497ms (977 modules)
+ ✓ Compiled in 458ms (977 modules)
+ GET /login 200 in 259ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1029ms (966 modules)
+ GET /_next/static/css/app/layout.css?v=1787331860207 404 in 1354ms
+ GET /_next/static/chunks/webpack.js?v=1787331860207 404 in 1404ms
+ GET /_next/static/chunks/main-app.js?v=1787331860207 404 in 1402ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 1401ms
+ GET /_next/static/chunks/app/layout.js 404 in 1406ms
+ GET /_next/static/chunks/app/login/page.js 404 in 1407ms
+ GET /gym-bg.jpg 404 in 50ms
+ GET /login 200 in 220ms
+ GET /_next/static/css/app/layout.css?v=1787331864682 404 in 192ms
+ GET /_next/static/chunks/main-app.js?v=1787331864682 404 in 221ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 218ms
+ GET /_next/static/chunks/app/login/page.js 404 in 212ms
+ GET /_next/static/chunks/app/layout.js 404 in 203ms
+ GET /gym-bg.jpg 404 in 26ms
+ ✓ Compiled in 1216ms (977 modules)
+ GET /login 200 in 133ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 895ms (1008 modules)
+ ⨯ Error: Cannot find module './9276.js'
+Require stack:
+- C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+- C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\_not-found\page.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1517:15)
+    at C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+    at Module._load (node:internal/modules/cjs/loader:1294:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1617:12)
+    at mod.require (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at __webpack_require__.f.require (C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js:277:28)
+    at C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js:185:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js:184:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js:236:22)
+    at C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\_not-found\page.js:1:5037
+    at Object.<anonymous> (C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\_not-found\page.js:1:5084)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1617:12)
+    at mod.require (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at requirePage (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\base-server.js:922:25)
+    at async C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\marcelo.gomes\\v8-academia-painel\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /api/auth/session 200 in 2819ms
+ ○ Compiling /_error ...
+ ✓ Compiled /api/auth/signin in 4.4s (1304 modules)
+ POST /api/auth/signin 200 in 5310ms
+ GET /dashboard 404 in 251ms
+ GET /_next/static/css/app/layout.css?v=1787332218566 404 in 177ms
+ GET /_next/static/chunks/main-app.js?v=1787332218566 404 in 215ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 213ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/lucide-react' in C:\Users\marcelo.gomes\v8-academia-painel\.next\server for build dependencies doesn't lead to expected result 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js', but to 'Error: Can't resolve './vendor-chunks/lucide-react' in 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/lucide-react (expected C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js)
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\page.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\page.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/next-themes' in C:\Users\marcelo.gomes\v8-academia-painel\.next\server for build dependencies doesn't lead to expected result 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\next-themes.js', but to 'Error: Can't resolve './vendor-chunks/next-themes' in 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/next-themes (expected C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\next-themes.js)
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\page.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\page.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/lucide-react' in C:\Users\marcelo.gomes\v8-academia-painel\.next\server for build dependencies doesn't lead to expected result 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js', but to 'Error: Can't resolve './vendor-chunks/lucide-react' in 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/lucide-react (expected C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\lucide-react.js)
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\api\auth\logout\route.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\api\auth\logout\route.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/next-themes' in C:\Users\marcelo.gomes\v8-academia-painel\.next\server for build dependencies doesn't lead to expected result 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\next-themes.js', but to 'Error: Can't resolve './vendor-chunks/next-themes' in 'C:\Users\marcelo.gomes\v8-academia-painel\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/next-themes (expected C:\Users\marcelo.gomes\v8-academia-painel\.next\server\vendor-chunks\next-themes.js)
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\api\auth\logout\route.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\.next\server\app\api\auth\logout\route.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\marcelo.gomes\v8-academia-painel\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
