@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const confirmarSchema = z.object({
   agendamentoId: z.string().min(1, 'ID do agendamento é obrigatório'),
 })

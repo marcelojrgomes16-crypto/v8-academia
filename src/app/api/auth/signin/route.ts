@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const signinSchema = z.object({
   email: z.string().min(1, 'E-mail ou CPF é obrigatório'),
   password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),

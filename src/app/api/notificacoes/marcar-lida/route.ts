@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const marcarLidaSchema = z.object({
   ids: z.array(z.string()).min(1, 'Pelo menos uma notificação deve ser informada'),
 })

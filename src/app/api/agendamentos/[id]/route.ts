@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const updateAgendamentoSchema = z.object({
   alunoId: z.string().optional(),
   professorId: z.string().optional(),
