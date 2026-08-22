@@ -85,8 +85,10 @@ export async function GET(request: NextRequest) {
     const exByName = (n: string) => exList.find(e => e.nome === n)
 
     const planoPremium = await prisma.plano.findFirst({ where: { nome: 'Premium' } })
-    const profRef = p1u || (await prisma.usuario.findFirst({ where: { role: 'PROFESSOR' } }))
-    const profRef2 = p2u || profRef
+    const prof1 = p1u ? await prisma.professor.findFirst({ where: { usuarioId: p1u.id } }) : null
+    const prof2 = p2u ? await prisma.professor.findFirst({ where: { usuarioId: p2u.id } }) : null
+    const profRef = prof1 || prof2 || (await prisma.professor.findFirst())
+    const profRef2 = prof2 || prof1 || profRef
 
     const joaoExists = await prisma.usuario.findFirst({ where: { email: 'joao@email.com' } })
     if (!joaoExists && profRef && pl1) {
@@ -98,7 +100,7 @@ export async function GET(request: NextRequest) {
           aluno: { create: { matricula: 'V8MASC01', dataMatricula: new Date(), dataVencimento: new Date(Date.now() + 30*86400000), planoId: planoPremium?.id || pl1.id, professorId: profRef.id, objetivo: 'Ganhar massa muscular e forca' } }
         }, include: { aluno: true } })
 
-        const t1 = await prisma.treino.create({ data: { nome: 'Treino A - Peito e Triceps', descricao: 'Treino focado em peito e triceps', alunoId: joao.id, professorId: profRef.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
+        const t1 = await prisma.treino.create({ data: { nome: 'Treino A - Peito e Triceps', descricao: 'Treino focado em peito e triceps', alunoId: joao.id, professorId: p1u!.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
         const exercises1 = [
           { ex: exByName('Supino Reto'), s: 4, r: '8-12', c: '60kg', d: 90 },
           { ex: exByName('Triceps Pulley'), s: 3, r: '12-15', c: '25kg', d: 60 },
@@ -110,7 +112,7 @@ export async function GET(request: NextRequest) {
           if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t1.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
         }
 
-        const t2 = await prisma.treino.create({ data: { nome: 'Treino B - Pernas', descricao: 'Treino completo de pernas e gluteos', alunoId: joao.id, professorId: profRef.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4] } })
+        const t2 = await prisma.treino.create({ data: { nome: 'Treino B - Pernas', descricao: 'Treino completo de pernas e gluteos', alunoId: joao.id, professorId: p1u!.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4] } })
         const ex2 = [
           { ex: exByName('Agachamento'), s: 4, r: '8-10', c: '80kg', d: 120 },
           { ex: exByName('Leg Press'), s: 4, r: '10-12', c: '120kg', d: 90 },
@@ -144,7 +146,7 @@ export async function GET(request: NextRequest) {
           aluno: { create: { matricula: 'V8FEM01', dataMatricula: new Date(), dataVencimento: new Date(Date.now() + 30*86400000), planoId: planoPremium?.id || pl1.id, professorId: profRef2.id, objetivo: 'Tonificar o corpo e melhorar resistencia' } }
         }, include: { aluno: true } })
 
-        const t3 = await prisma.treino.create({ data: { nome: 'Treino A - Tonificacao', descricao: 'Treino focado em tonificacao e resistencia', alunoId: maria.id, professorId: profRef2.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
+        const t3 = await prisma.treino.create({ data: { nome: 'Treino A - Tonificacao', descricao: 'Treino focado em tonificacao e resistencia', alunoId: maria.id, professorId: p2u!.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
         const ex3 = [
           { ex: exByName('Puxada Frontal'), s: 3, r: '12-15', c: '30kg', d: 60 },
           { ex: exByName('Rosca Direta'), s: 3, r: '12-15', c: '10kg', d: 45 },
@@ -156,7 +158,7 @@ export async function GET(request: NextRequest) {
           if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t3.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
         }
 
-        const t4 = await prisma.treino.create({ data: { nome: 'Treino B - Cardio e Core', descricao: 'Treino funcional com foco em cardio e core', alunoId: maria.id, professorId: profRef2.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4, 6] } })
+        const t4 = await prisma.treino.create({ data: { nome: 'Treino B - Cardio e Core', descricao: 'Treino funcional com foco em cardio e core', alunoId: maria.id, professorId: p2u!.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4, 6] } })
         const ex4 = [
           { ex: exByName('Agachamento'), s: 3, r: '15-20', c: '20kg', d: 45 },
           { ex: exByName('Elevacao Lateral'), s: 3, r: '15', c: '5kg', d: 30 },
