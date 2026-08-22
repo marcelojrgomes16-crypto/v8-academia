@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils'
 import { useSession } from '@/lib/auth-context'
 import {
   LayoutDashboard, Users, Dumbbell, Calendar, BarChart3,
-  CreditCard, Wallet, TrendingUp, FileText, ChevronDown,
+  CreditCard, Wallet, TrendingUp, ChevronDown,
   ChevronRight, Settings, LogOut, UserPlus, ClipboardList,
-  DollarSign, AlertTriangle, UserCheck, List, Repeat
+  DollarSign, AlertTriangle, UserCheck, List, Repeat,
+  FileText, Zap, Target, User
 } from 'lucide-react'
 
 interface NavItem {
@@ -35,7 +36,7 @@ const adminNavGroups: NavGroup[] = [
     items: [
       { name: 'Alunos', href: '/admin/alunos', icon: Users },
       { name: 'Planos', href: '/admin/planos', icon: ClipboardList },
-      { name: 'Funcionários', href: '/admin/funcionarios', icon: UserCheck },
+      { name: 'Funcionarios', href: '/admin/funcionarios', icon: UserCheck },
       { name: 'Personal Trainers', href: '/admin/professores', icon: UserPlus },
     ],
   },
@@ -44,23 +45,23 @@ const adminNavGroups: NavGroup[] = [
     items: [
       { name: 'Receitas', href: '/admin/receitas', icon: DollarSign },
       { name: 'Despesas', href: '/admin/despesas', icon: Wallet },
-      { name: 'Cobranças', href: '/admin/cobrancas', icon: CreditCard },
+      { name: 'Cobrancas', href: '/admin/cobrancas', icon: CreditCard },
     ],
   },
   {
     title: 'TREINOS',
     items: [
-      { name: 'Exercícios', href: '/admin/exercicios', icon: Dumbbell },
-      { name: 'Séries', href: '/admin/series', icon: List },
+      { name: 'Exercicios', href: '/admin/exercicios', icon: Dumbbell },
+      { name: 'Series', href: '/admin/series', icon: List },
       { name: 'Agendamentos', href: '/admin/aulas', icon: Calendar },
     ],
   },
   {
-    title: 'RELATÓRIO',
+    title: 'RELATORIOS',
     items: [
-      { name: 'Relatório Financeiro', href: '/admin/relatorios', icon: BarChart3 },
-      { name: 'Relatório de Alunos', href: '/admin/relatorios/alunos', icon: Users },
-      { name: 'Relatório de Presenças', href: '/admin/relatorios/presencas', icon: Repeat },
+      { name: 'Financeiro', href: '/admin/relatorios', icon: BarChart3 },
+      { name: 'Alunos', href: '/admin/relatorios/alunos', icon: Users },
+      { name: 'Presencas', href: '/admin/relatorios/presencas', icon: Repeat },
     ],
   },
 ]
@@ -69,15 +70,35 @@ const alunoNavGroups: NavGroup[] = [
   {
     title: '',
     items: [
-      { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+      { name: 'Painel', href: '/dashboard', icon: LayoutDashboard },
     ],
   },
   {
-    title: 'MEUS TREINOS',
+    title: 'MEU TREINO',
     items: [
-      { name: 'Meus Treinos', href: '/dashboard/treinos', icon: Dumbbell },
-      { name: 'Agendamentos', href: '/dashboard/agendamentos', icon: Calendar },
+      { name: 'Treinos', href: '/dashboard/treinos', icon: Dumbbell },
+      { name: 'Meu Plano', href: '/dashboard/plano', icon: Target },
+    ],
+  },
+  {
+    title: 'AGENDAMENTOS',
+    items: [
+      { name: 'Agendar Aula', href: '/dashboard/agendamentos', icon: Calendar },
+      { name: 'Meus Agendamentos', href: '/dashboard/agendamentos/lista', icon: ClipboardList },
+    ],
+  },
+  {
+    title: 'FINANCEIRO',
+    items: [
+      { name: 'Meus Boletos', href: '/dashboard/boletos', icon: CreditCard },
+      { name: 'Meus Pagamentos', href: '/dashboard/pagamentos', icon: DollarSign },
+    ],
+  },
+  {
+    title: 'MEU DESEMPENHO',
+    items: [
       { name: 'Progresso', href: '/dashboard/progresso', icon: TrendingUp },
+      { name: 'Avaliacoes', href: '/dashboard/avaliacoes', icon: Zap },
     ],
   },
 ]
@@ -109,7 +130,7 @@ export function Sidebar() {
         </Link>
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1" aria-label="Navegação principal">
+      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1" aria-label="Navegacao principal">
         {groups.map((group) => (
           <div key={group.title || 'main'}>
             {group.title && (
@@ -153,7 +174,7 @@ export function Sidebar() {
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-400 hover:bg-white/5 hover:text-white transition-all"
         >
           <Settings className="h-4.5 w-4.5" />
-          Configurações
+          Configuracoes
         </Link>
         <button
           onClick={logout}

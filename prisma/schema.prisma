@@ -46,7 +46,8 @@ model Usuario {
   avatarUrl     String?
   telefone      String?
   dataNascimento DateTime?
-  endereco      Json?
+  genero         String?
+  endereco       Json?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

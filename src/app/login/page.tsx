@@ -198,7 +198,7 @@ function LoginFormInner() {
         </div>
 
         <p className="text-center text-gray-600 text-xs mt-6 tracking-wide">
-          © 2024 V8 ACADEMIA
+          © 2026 V8 ACADEMIA
         </p>
       </div>
     </div>

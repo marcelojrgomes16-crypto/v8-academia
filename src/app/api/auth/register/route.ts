@@ -11,13 +11,14 @@ const registerSchema = z.object({
   cpf: z.string().length(11, 'CPF deve ter 11 dígitos'),
   telefone: z.string().optional(),
   dataNascimento: z.string().datetime().optional().nullable(),
+  genero: z.string().optional().nullable(),
   password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
 })
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { nome, email, cpf, telefone, dataNascimento, password } = registerSchema.parse(body)
+    const { nome, email, cpf, telefone, dataNascimento, genero, password } = registerSchema.parse(body)
 
     const existingUser = await prisma.usuario.findFirst({
       where: {
@@ -43,6 +44,7 @@ export async function POST(request: NextRequest) {
         cpf,
         telefone: telefone ? telefone.replace(/\D/g, '') : null,
         dataNascimento: dataNascimento ? new Date(dataNascimento) : null,
+        genero: genero || null,
         senhaHash,
         role: 'ALUNO',
         status: 'PENDENTE',

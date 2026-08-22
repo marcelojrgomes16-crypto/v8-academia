@@ -1,6 +1,4 @@
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
-import { revalidatePath } from 'next/cache'
 import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
@@ -8,232 +6,151 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { ArrowLeft, Play, Clock, Repeat, Dumbbell, CheckCircle } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
-const diasSemanaMap: Record<number, string> = {
-  0: 'Dom',
-  1: 'Seg',
-  2: 'Ter',
-  3: 'Qua',
-  4: 'Qui',
-  5: 'Sex',
-  6: 'Sáb',
-}
-
-const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
-  ATIVO: 'success',
-  PAUSADO: 'warning',
-  CONCLUIDO: 'info',
-  CANCELADO: 'destructive',
-}
-
-const statusLabel: Record<string, string> = {
-  ATIVO: 'Ativo',
-  PAUSADO: 'Pausado',
-  CONCLUIDO: 'Concluído',
-  CANCELADO: 'Cancelado',
-}
-
-async function updateTreinoStatus(formData: FormData) {
-  'use server'
-
+export default async function TreinoDetailPage({ params }: { params: { id: string } }) {
   const session = await getSession()
   if (!session) redirect('/login')
 
-  const treinoId = formData.get('treinoId') as string
-  const newStatus = formData.get('newStatus') as string
-
-  if (!treinoId || !newStatus) return
-
-  const treino = await prisma.treino.findUnique({ where: { id: treinoId } })
-  if (!treino || treino.alunoId !== session.user.id) return
-
-  await prisma.treino.update({
-    where: { id: treinoId },
-    data: { status: newStatus as any },
-  })
-
-  revalidatePath(`/dashboard/treinos/${treinoId}`)
-  revalidatePath('/dashboard/treinos')
-}
-
-export default async function TreinoDetailPage({
-  params,
-}: {
-  params: { id: string }
-}) {
-  const session = await getSession()
-  if (!session) redirect('/login')
-
-  const treino = await prisma.treino.findUnique({
-    where: { id: params.id },
+  const treino = await prisma.treino.findFirst({
+    where: { id: params.id, alunoId: session.user.id },
     include: {
-      professor: {
-        select: { nome: true, email: true },
-      },
       exercicios: {
-        include: {
-          exercicio: {
-            select: { nome: true, grupoMuscular: true, equipamento: true },
-          },
-        },
+        include: { exercicio: true },
         orderBy: { ordem: 'asc' },
+      },
+      professor: {
+        select: { nome: true },
       },
     },
   })
 
-  if (!treino || treino.alunoId !== session.user.id) {
-    redirect('/dashboard/treinos')
-  }
-
-  const diasSemana = (treino.diasSemana as number[]) ?? []
+  if (!treino) redirect('/dashboard/treinos')
 
   return (
     <DashboardLayout>
-      <div className="mb-6">
-        <Link
-          href="/dashboard/treinos"
-          className="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1 mb-4"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Voltar
-        </Link>
-        <div className="flex items-start justify-between flex-wrap gap-4">
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard/treinos">
+            <Button variant="ghost" size="sm">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Voltar
+            </Button>
+          </Link>
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold">{treino.nome}</h1>
-              <Badge variant={statusVariant[treino.status]}>
-                {statusLabel[treino.status]}
-              </Badge>
-            </div>
-            {treino.descricao && (
-              <p className="text-gray-400 text-sm mt-2">{treino.descricao}</p>
-            )}
-          </div>
-          <div className="flex gap-2">
-            {treino.status === 'ATIVO' && (
-              <form action={updateTreinoStatus}>
-                <input type="hidden" name="treinoId" value={treino.id} />
-                <input type="hidden" name="newStatus" value="PAUSADO" />
-                <Button type="submit" variant="outline" size="sm">
-                  Pausar
-                </Button>
-              </form>
-            )}
-            {treino.status === 'PAUSADO' && (
-              <form action={updateTreinoStatus}>
-                <input type="hidden" name="treinoId" value={treino.id} />
-                <input type="hidden" name="newStatus" value="ATIVO" />
-                <Button type="submit" size="sm">
-                  Retomar
-                </Button>
-              </form>
-            )}
-            {(treino.status === 'ATIVO' || treino.status === 'PAUSADO') && (
-              <form action={updateTreinoStatus}>
-                <input type="hidden" name="treinoId" value={treino.id} />
-                <input type="hidden" name="newStatus" value="CONCLUIDO" />
-                <Button type="submit" variant="success" size="sm">
-                  Concluir
-                </Button>
-              </form>
-            )}
+            <h1 className="text-2xl font-bold text-white">{treino.nome}</h1>
+            <p className="text-gray-400 text-sm mt-1">
+              {treino.exercicios.length} exercicios &bull; Professor: {treino.professor?.nome || 'Nao atribuido'}
+            </p>
           </div>
         </div>
-      </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Exercícios</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {treino.exercicios.length === 0 ? (
-                <p className="text-gray-400 text-sm">Nenhum exercício cadastrado</p>
-              ) : (
-                <div className="space-y-3">
-                  {treino.exercicios.map((et) => (
-                    <div
-                      key={et.id}
-                      className="flex items-center gap-4 p-3 rounded-lg bg-gym-dark/50 border border-gym-border"
-                    >
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-600 text-white text-sm font-semibold shrink-0">
-                        {et.ordem}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm">{et.exercicio.nome}</p>
-                        <p className="text-xs text-gray-400 mt-0.5">
-                          {et.exercicio.grupoMuscular}
-                          {et.exercicio.equipamento && ` · ${et.exercicio.equipamento}`}
-                        </p>
-                      </div>
-                      <div className="text-right text-sm shrink-0">
-                        <p className="text-white font-medium">
-                          {et.series}x{et.repeticoes}
-                        </p>
-                        {et.carga && (
-                          <p className="text-xs text-gray-400">{et.carga}</p>
-                        )}
-                        {et.descanso && (
-                          <p className="text-xs text-gray-500">Desc: {et.descanso}s</p>
-                        )}
-                      </div>
-                      {et.observacoes && (
-                        <p className="text-xs text-gray-500 italic truncate max-w-[120px]">
-                          {et.observacoes}
-                        </p>
-                      )}
+        {treino.descricao && (
+          <Card className="bg-[#141414] border-red-900/20">
+            <CardContent className="p-4">
+              <p className="text-gray-300">{treino.descricao}</p>
+            </CardContent>
+          </Card>
+        )}
+
+        <div className="space-y-4">
+          {treino.exercicios.map((ex, idx) => (
+            <Card key={ex.id} className="bg-[#141414] border-red-900/20 overflow-hidden hover:border-red-900/40 transition-colors">
+              <div className="flex flex-col md:flex-row">
+                {ex.exercicio.imagemUrl && (
+                  <div className="md:w-64 h-48 md:h-auto relative bg-gray-900">
+                    <img
+                      src={ex.exercicio.imagemUrl}
+                      alt={ex.exercicio.nome}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge className="bg-red-600 text-white text-xs font-bold">
+                        {idx + 1}
+                      </Badge>
                     </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+                    {ex.exercicio.videoUrl && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 hover:opacity-100 transition-opacity">
+                        <a
+                          href={ex.exercicio.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="h-14 w-14 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-700 transition-colors"
+                        >
+                          <Play className="h-6 w-6 text-white ml-1" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                )}
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Informações</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="text-xs text-gray-400 mb-1">Professor</p>
-                <p className="text-sm font-medium">{treino.professor.nome}</p>
+                <CardContent className="flex-1 p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="font-bold text-lg text-white">{ex.exercicio.nome}</h3>
+                      <Badge variant="outline" className="mt-1 text-xs">
+                        {ex.exercicio.grupoMuscular}
+                      </Badge>
+                    </div>
+                    {!ex.exercicio.imagemUrl && ex.exercicio.videoUrl && (
+                      <a
+                        href={ex.exercicio.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-10 w-10 rounded-full bg-red-600/20 flex items-center justify-center hover:bg-red-600/30 transition-colors"
+                      >
+                        <Play className="h-5 w-5 text-red-400 ml-0.5" />
+                      </a>
+                    )}
+                  </div>
+
+                  {ex.exercicio.descricao && (
+                    <p className="text-sm text-gray-400 mb-4">{ex.exercicio.descricao}</p>
+                  )}
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3 rounded-lg bg-white/5 border border-white/5">
+                      <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-1">
+                        <Repeat className="h-3 w-3" />
+                        Series
+                      </div>
+                      <p className="text-lg font-bold text-white">{ex.series}x</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-white/5 border border-white/5">
+                      <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-1">
+                        <Dumbbell className="h-3 w-3" />
+                        Repeticoes
+                      </div>
+                      <p className="text-lg font-bold text-white">{ex.repeticoes}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-white/5 border border-white/5">
+                      <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-1">
+                        <CheckCircle className="h-3 w-3" />
+                        Carga
+                      </div>
+                      <p className="text-lg font-bold text-white">{ex.carga || 'Livre'}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-white/5 border border-white/5">
+                      <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-1">
+                        <Clock className="h-3 w-3" />
+                        Descanso
+                      </div>
+                      <p className="text-lg font-bold text-white">{ex.descanso ? `${ex.descanso}s` : '60s'}</p>
+                    </div>
+                  </div>
+
+                  {ex.exercicio.equipamento && (
+                    <p className="text-xs text-gray-500 mt-3">
+                      Equipamento: <span className="text-gray-400">{ex.exercicio.equipamento}</span>
+                    </p>
+                  )}
+                </CardContent>
               </div>
-              <div>
-                <p className="text-xs text-gray-400 mb-1">Data de Início</p>
-                <p className="text-sm font-medium">{formatDate(treino.dataInicio)}</p>
-              </div>
-              {treino.dataFim && (
-                <div>
-                  <p className="text-xs text-gray-400 mb-1">Data de Término</p>
-                  <p className="text-sm font-medium">{formatDate(treino.dataFim)}</p>
-                </div>
-              )}
-              <div>
-                <p className="text-xs text-gray-400 mb-2">Dias da Semana</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {diasSemana.map((dia) => (
-                    <span
-                      key={dia}
-                      className="px-2 py-0.5 rounded bg-primary-600/20 text-primary-300 text-xs"
-                    >
-                      {diasSemanaMap[dia] ?? dia}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 mb-1">Criado em</p>
-                <p className="text-sm font-medium">{formatDate(treino.createdAt)}</p>
-              </div>
-            </CardContent>
-          </Card>
+            </Card>
+          ))}
         </div>
       </div>
     </DashboardLayout>

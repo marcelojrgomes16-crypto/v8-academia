@@ -19,6 +19,7 @@ const registerSchema = z.object({
   cpf: z.string().min(11, 'CPF inválido').max(14, 'CPF inválido'),
   telefone: z.string().min(10, 'Telefone inválido').optional(),
   dataNascimento: z.string().optional(),
+  genero: z.string().optional(),
   password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
   confirmPassword: z.string(),
   termos: z.boolean().refine(val => val === true, { message: 'Você deve aceitar os termos' }),
@@ -56,6 +57,7 @@ export function RegisterForm() {
           cpf: data.cpf.replace(/\D/g, ''),
           telefone: data.telefone?.replace(/\D/g, ''),
           dataNascimento: data.dataNascimento ? new Date(data.dataNascimento) : null,
+          genero: data.genero || null,
           password: data.password,
         }),
       })
@@ -165,6 +167,20 @@ export function RegisterForm() {
               autoComplete="bday"
               disabled={isLoading}
             />
+          </div>
+
+          <div>
+            <Label className="text-sm text-gray-400 mb-2 block">Genero (opcional)</Label>
+            <div className="flex gap-3">
+              <label className="flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border border-gym-border bg-gym-dark cursor-pointer hover:border-red-500/50 transition-colors has-[:checked]:border-red-500 has-[:checked]:bg-red-600/10">
+                <input type="radio" {...register('genero')} value="MASCULINO" className="sr-only" />
+                <span className="text-sm text-gray-300">Masculino</span>
+              </label>
+              <label className="flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border border-gym-border bg-gym-dark cursor-pointer hover:border-red-500/50 transition-colors has-[:checked]:border-red-500 has-[:checked]:bg-red-600/10">
+                <input type="radio" {...register('genero')} value="FEMININO" className="sr-only" />
+                <span className="text-sm text-gray-300">Feminino</span>
+              </label>
+            </div>
           </div>
 
           <div className="relative">

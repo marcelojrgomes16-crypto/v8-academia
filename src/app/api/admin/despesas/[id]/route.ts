@@ -15,6 +15,10 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
     }
 
+    if (session.user.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
+    }
+
     const { id } = await params
     const despesa = await prisma.despesa.findUnique({ where: { id } })
 
@@ -34,6 +38,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const session = await getSession()
     if (!session?.user) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
+    }
+
+    if (session.user.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
     }
 
     const { id } = await params
@@ -68,6 +76,10 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     const session = await getSession()
     if (!session?.user) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
+    }
+
+    if (session.user.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
     }
 
     const { id } = await params
