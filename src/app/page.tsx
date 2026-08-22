@@ -14,7 +14,7 @@ export default function HomePage() {
             </svg>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <Link href="/entrar" className="text-sm text-gray-400 hover:text-white transition-colors">
               Entrar
             </Link>
             <Link
@@ -72,13 +72,13 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/register"
+              href="/entrar"
               className="px-8 py-4 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-all hover:shadow-lg hover:shadow-red-900/40 flex items-center gap-2 text-lg"
             >
               Comece Agora <ArrowRight className="h-5 w-5" />
             </Link>
             <Link
-              href="/login"
+              href="/entrar"
               className="px-8 py-4 border border-gray-700 text-gray-300 font-medium rounded-xl hover:bg-white/5 hover:border-gray-600 transition-all text-lg"
             >
               Ja tenho conta
