@@ -1,22 +1,22 @@
-import type { PrismaClient } from '@prisma/client'
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+  prisma: any | undefined
 }
 
-function createClient(): PrismaClient {
+function createClient() {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { PrismaClient: PC } = require('@prisma/client')
-    return new PC({
+    const { PrismaClient } = require('@prisma/client')
+    const client = new PrismaClient({
       log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
     })
+    return client
   } catch {
-    return new Proxy({} as PrismaClient, {
+    return new Proxy({} as any, {
       get(_t, p) {
         if (p === Symbol.toPrimitive || p === 'then' || p === 'toJSON') return undefined
         return (..._args: any[]) => {
-          throw new Error('Database not available. Ensure DATABASE_URL is set and prisma generate has run.')
+          throw new Error('Database not connected. Ensure DATABASE_URL is set.')
         }
       },
     })
