@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getPrisma } from '@/lib/prisma';
+const prisma = getPrisma()
 import { getSession } from '@/lib/session'
 import { z } from 'zod'
 

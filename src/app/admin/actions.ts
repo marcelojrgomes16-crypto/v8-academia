@@ -1,7 +1,8 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { prisma } from '@/lib/prisma'
+import { getPrisma } from '@/lib/prisma';
+const prisma = getPrisma()
 import { getSession } from '@/lib/session'
 
 export async function updateAlunoStatus(alunoId: string, status: 'ATIVO' | 'INATIVO' | 'BLOQUEADO') {
