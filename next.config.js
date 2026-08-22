@@ -10,6 +10,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  serverExternalPackages: ['@prisma/client'],
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
