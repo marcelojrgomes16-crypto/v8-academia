@@ -4,11 +4,10 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-export async function getPrisma(): Promise<PrismaClient> {
-  if (typeof window !== 'undefined') throw new Error('PrismaClient should not be used on the client')
+export function getPrisma(): PrismaClient {
   if (!globalForPrisma.prisma) {
-    const { PrismaClient: PC } = await import('@prisma/client')
-    globalForPrisma.prisma = new PC({
+    const { PrismaClient } = require('@prisma/client') as typeof import('@prisma/client')
+    globalForPrisma.prisma = new PrismaClient({
       log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
     })
   }
@@ -17,7 +16,8 @@ export async function getPrisma(): Promise<PrismaClient> {
 
 export const prisma = new Proxy({} as PrismaClient, {
   get(_target, prop) {
-    if (prop === Symbol.toPrimitive || prop === 'then' || prop === 'toJSON' || prop === 'thenable') return undefined
+    if (typeof prop === 'symbol') return undefined
+    if (prop === 'then' || prop === 'toJSON') return undefined
     const client = getPrisma()
     const value = (client as any)[prop]
     if (typeof value === 'function') {

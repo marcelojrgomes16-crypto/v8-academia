@@ -1,8 +1,7 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
-import { getPrisma } from '@/lib/prisma';
-const prisma = getPrisma()
+import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'

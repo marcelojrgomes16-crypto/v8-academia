@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getPrisma } from '@/lib/prisma';
-const prisma = getPrisma()
+import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/session'
 
 export const dynamic = 'force-dynamic'
