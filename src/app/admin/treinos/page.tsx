@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
@@ -29,9 +27,6 @@ interface TreinosAdminPageProps {
 }
 
 export default async function TreinosAdminPage({ searchParams }: TreinosAdminPageProps) {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const status = typeof searchParams.status === 'string' ? searchParams.status : ''
 

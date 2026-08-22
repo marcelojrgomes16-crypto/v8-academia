@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -15,15 +13,16 @@ const categorias = [
 ]
 
 export default async function DespesasPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
+  const [despesas, totalResult, countResult] = await Promise.all([
+    prisma.despesa.findMany({
+      orderBy: { data: 'desc' },
+    }),
+    prisma.despesa.aggregate({ _sum: { valor: true } }),
+    prisma.despesa.count(),
+  ])
 
-  const despesas = await prisma.despesa.findMany({
-    orderBy: { data: 'desc' },
-  })
-
-  const total = despesas.reduce((acc, d) => acc + d.valor, 0)
+  const total = totalResult._sum.valor || 0
+  const count = countResult
 
   return (
     <DashboardLayout>
@@ -45,14 +44,14 @@ export default async function DespesasPage() {
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-400">Quantidade</p>
-            <p className="text-2xl font-bold">{despesas.length}</p>
+            <p className="text-2xl font-bold">{count}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-400">Media</p>
             <p className="text-2xl font-bold text-yellow-400">
-              {despesas.length > 0 ? formatCurrency(total / despesas.length) : formatCurrency(0)}
+              {count > 0 ? formatCurrency(total / count) : formatCurrency(0)}
             </p>
           </CardContent>
         </Card>

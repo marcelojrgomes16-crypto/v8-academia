@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -13,9 +11,6 @@ import { PlanoActions } from './plano-actions'
 export const dynamic = 'force-dynamic'
 
 export default async function PlanosPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const planos = await prisma.plano.findMany({
     include: { _count: { select: { alunos: true } } },

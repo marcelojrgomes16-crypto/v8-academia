@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,19 +9,19 @@ import { CobrancaActions } from './cobranca-actions'
 export const dynamic = 'force-dynamic'
 
 export default async function CobrancasPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
+  const [cobrancas, totalPendente, totalPago] = await Promise.all([
+    prisma.cobranca.findMany({
+      include: {
+        aluno: { select: { id: true, nome: true, email: true } },
+      },
+      orderBy: { dataVencimento: 'desc' },
+    }),
+    prisma.cobranca.aggregate({ where: { status: 'PENDENTE' }, _sum: { valor: true } }),
+    prisma.cobranca.aggregate({ where: { status: 'PAGO' }, _sum: { valor: true } }),
+  ])
 
-  const cobrancas = await prisma.cobranca.findMany({
-    include: {
-      aluno: { select: { id: true, nome: true, email: true } },
-    },
-    orderBy: { dataVencimento: 'desc' },
-  })
-
-  const totalPendente = cobrancas.filter((c) => c.status === 'PENDENTE').reduce((a, c) => a + c.valor, 0)
-  const totalPago = cobrancas.filter((c) => c.status === 'PAGO').reduce((a, c) => a + c.valor, 0)
+  const totalPendenteValor = totalPendente._sum.valor || 0
+  const totalPagoValor = totalPago._sum.valor || 0
 
   return (
     <DashboardLayout>
@@ -39,13 +37,13 @@ export default async function CobrancasPage() {
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-400">Pendente</p>
-            <p className="text-2xl font-bold text-yellow-400">{formatCurrency(totalPendente)}</p>
+            <p className="text-2xl font-bold text-yellow-400">{formatCurrency(totalPendenteValor)}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-400">Pago</p>
-            <p className="text-2xl font-bold text-green-400">{formatCurrency(totalPago)}</p>
+            <p className="text-2xl font-bold text-green-400">{formatCurrency(totalPagoValor)}</p>
           </CardContent>
         </Card>
         <Card>

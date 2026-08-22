@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatCurrency } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
@@ -9,9 +7,6 @@ import { Users, Dumbbell, Calendar, DollarSign, TrendingUp, CheckCircle } from '
 export const dynamic = 'force-dynamic'
 
 export default async function RelatoriosPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const [
     totalAlunos,

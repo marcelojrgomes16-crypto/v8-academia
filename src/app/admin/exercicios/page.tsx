@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -16,9 +14,6 @@ const gruposMusculares = [
 ]
 
 export default async function ExerciciosPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const exercicios = await prisma.exercicio.findMany({
     include: { _count: { select: { treinos: true, series: true } } },

@@ -1,6 +1,4 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatDate, maskCPF } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
@@ -32,9 +30,9 @@ interface AlunosPageProps {
 }
 
 export default async function AlunosPage({ searchParams }: AlunosPageProps) {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
+  const page = typeof searchParams.page === 'string' ? parseInt(searchParams.page) || 1 : 1
+  const limit = 20
+  const skip = (page - 1) * limit
 
   const search = typeof searchParams.search === 'string' ? searchParams.search : ''
   const status = typeof searchParams.status === 'string' ? searchParams.status : ''
@@ -55,33 +53,40 @@ export default async function AlunosPage({ searchParams }: AlunosPageProps) {
     where.usuario = { ...where.usuario, status }
   }
 
-  const alunos = await prisma.aluno.findMany({
-    where,
-    include: {
-      usuario: {
-        select: {
-          id: true,
-          nome: true,
-          email: true,
-          cpf: true,
-          status: true,
-          telefone: true,
-          avatarUrl: true,
+  const [alunos, total] = await Promise.all([
+    prisma.aluno.findMany({
+      where,
+      include: {
+        usuario: {
+          select: {
+            id: true,
+            nome: true,
+            email: true,
+            cpf: true,
+            status: true,
+            telefone: true,
+            avatarUrl: true,
+          },
         },
-      },
-      plano: {
-        select: { nome: true, preco: true },
-      },
-      professor: {
-        include: {
-          usuario: {
-            select: { nome: true },
+        plano: {
+          select: { nome: true, preco: true },
+        },
+        professor: {
+          include: {
+            usuario: {
+              select: { nome: true },
+            },
           },
         },
       },
-    },
-    orderBy: { usuario: { nome: 'asc' } },
-  })
+      orderBy: { usuario: { nome: 'asc' } },
+      skip,
+      take: limit,
+    }),
+    prisma.aluno.count({ where }),
+  ])
+
+  const totalPages = Math.ceil(total / limit)
 
   return (
     <DashboardLayout>
@@ -133,35 +138,54 @@ export default async function AlunosPage({ searchParams }: AlunosPageProps) {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-3">
-            {alunos.map((aluno) => (
-              <Link key={aluno.id} href={`/admin/alunos/${aluno.usuarioId}`}>
-                <Card className="hover:border-red-500 transition-colors cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
-                      <Avatar className="h-10 w-10">
-                        <AvatarFallback className="bg-red-600/20 text-red-400 text-xs">
-                          {aluno.usuario.nome.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-white truncate">{aluno.usuario.nome}</p>
-                        <p className="text-sm text-gray-400 truncate">{aluno.usuario.email}</p>
+          <>
+            <div className="space-y-3">
+              {alunos.map((aluno) => (
+                <Link key={aluno.id} href={`/admin/alunos/${aluno.usuarioId}`}>
+                  <Card className="hover:border-red-500 transition-colors cursor-pointer">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-10 w-10">
+                          <AvatarFallback className="bg-red-600/20 text-red-400 text-xs">
+                            {aluno.usuario.nome.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-white truncate">{aluno.usuario.nome}</p>
+                          <p className="text-sm text-gray-400 truncate">{aluno.usuario.email}</p>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-gray-400 shrink-0">
+                          <span>CPF: {aluno.usuario.cpf ? maskCPF(aluno.usuario.cpf) : '—'}</span>
+                          <span>Plano: {aluno.plano?.nome || '—'}</span>
+                          <span>Prof: {aluno.professor?.usuario?.nome || '—'}</span>
+                        </div>
+                        <Badge variant={statusVariant[aluno.usuario.status]} className="shrink-0">
+                          {statusLabel[aluno.usuario.status]}
+                        </Badge>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-400 shrink-0">
-                        <span>CPF: {aluno.usuario.cpf ? maskCPF(aluno.usuario.cpf) : '—'}</span>
-                        <span>Plano: {aluno.plano?.nome || '—'}</span>
-                        <span>Prof: {aluno.professor?.usuario?.nome || '—'}</span>
-                      </div>
-                      <Badge variant={statusVariant[aluno.usuario.status]} className="shrink-0">
-                        {statusLabel[aluno.usuario.status]}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-6">
+                {page > 1 && (
+                  <a href={`/admin/alunos?page=${page - 1}${search ? `&search=${search}` : ''}${status ? `&status=${status}` : ''}`}>
+                    <Button variant="outline" size="sm">Anterior</Button>
+                  </a>
+                )}
+                <span className="text-sm text-gray-400">
+                  Pagina {page} de {totalPages}
+                </span>
+                {page < totalPages && (
+                  <a href={`/admin/alunos?page=${page + 1}${search ? `&search=${search}` : ''}${status ? `&status=${status}` : ''}`}>
+                    <Button variant="outline" size="sm">Proximo</Button>
+                  </a>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
     </DashboardLayout>

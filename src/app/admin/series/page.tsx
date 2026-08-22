@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,9 +8,6 @@ import { SerieActions } from './serie-actions'
 export const dynamic = 'force-dynamic'
 
 export default async function SeriesPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const series = await prisma.serie.findMany({
     include: {

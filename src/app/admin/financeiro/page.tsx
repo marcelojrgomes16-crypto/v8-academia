@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
@@ -17,9 +15,6 @@ const pagamentoStatusVariant: Record<string, 'success' | 'warning' | 'destructiv
 }
 
 export default async function FinanceiroPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const [pagamentos, receitaTotal, pagamentosPendentes, pagamentosAtrasados] = await Promise.all([
     prisma.pagamento.findMany({

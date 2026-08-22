@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -39,8 +37,8 @@ export default async function ProfessoresPage() {
           avatarUrl: true,
         },
       },
-      alunos: {
-        select: { id: true },
+      _count: {
+        select: { alunos: true },
       },
     },
     orderBy: { usuario: { nome: 'asc' } },
@@ -94,7 +92,7 @@ export default async function ProfessoresPage() {
                         </div>
                       )}
                       <div className="mt-3 pt-3 border-t border-gym-border flex items-center justify-between text-xs text-gray-500">
-                        <span>{professor.alunos.length} aluno{professor.alunos.length !== 1 ? 's' : ''}</span>
+                        <span>{professor._count.alunos} aluno{professor._count.alunos !== 1 ? 's' : ''}</span>
                         {professor.usuario.telefone && <span>{professor.usuario.telefone}</span>}
                       </div>
                     </div>

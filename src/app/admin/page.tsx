@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
@@ -16,9 +14,6 @@ import {
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboardPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const hoje = new Date()
   const primeiroDiaMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1)
@@ -56,7 +51,14 @@ export default async function AdminDashboardPage() {
       take: 8,
     }),
     prisma.usuario.findMany({
-      where: { role: 'ALUNO', dataNascimento: { not: null } },
+      where: {
+        role: 'ALUNO',
+        dataNascimento: {
+          not: null,
+          gte: new Date(hoje.getFullYear(), hoje.getMonth(), 1),
+          lt: new Date(hoje.getFullYear(), hoje.getMonth() + 1, 1),
+        },
+      },
       select: { nome: true, dataNascimento: true, id: true },
     }),
     prisma.pagamento.findMany({
@@ -76,11 +78,6 @@ export default async function AdminDashboardPage() {
   const inadimplenciaPct = Math.round(((pagamentosPendentes + cobrancasPendentes) / totalAlunosParaInadimplencia) * 100)
 
   const aniversariantesMes = aniversariantes
-    .filter((u) => {
-      if (!u.dataNascimento) return false
-      const d = new Date(u.dataNascimento)
-      return d.getMonth() === hoje.getMonth()
-    })
     .sort((a, b) => {
       const da = new Date(a.dataNascimento!).getDate()
       const db = new Date(b.dataNascimento!).getDate()

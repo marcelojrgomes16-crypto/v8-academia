@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
@@ -24,8 +22,12 @@ export default async function AulasPage() {
           email: true,
         },
       },
-      agendamentos: {
-        select: { id: true, status: true },
+      _count: {
+        select: {
+          agendamentos: {
+            where: { status: { in: ['AGENDADO', 'CONFIRMADO'] } },
+          },
+        },
       },
     },
     orderBy: [{ diaSemana: 'asc' }, { horaInicio: 'asc' }],
@@ -50,7 +52,7 @@ export default async function AulasPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {aulas.map((aula) => {
-            const agendados = aula.agendamentos.filter(a => a.status === 'AGENDADO' || a.status === 'CONFIRMADO').length
+            const agendados = aula._count.agendamentos
             return (
               <Card key={aula.id} className="hover:border-red-500 transition-colors">
                 <CardContent className="p-6">

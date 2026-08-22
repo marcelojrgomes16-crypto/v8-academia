@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,9 +7,6 @@ import { ConfiguracaoForm } from './configuracao-form'
 export const dynamic = 'force-dynamic'
 
 export default async function ConfiguracoesPage() {
-  const session = await getSession()
-  if (!session) redirect('/login')
-  if (session.user.role !== 'ADMIN') redirect('/dashboard')
 
   const configuracoes = await prisma.configuracao.findMany({
     orderBy: { chave: 'asc' },
