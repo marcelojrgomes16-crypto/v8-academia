@@ -195,7 +195,7 @@ export default async function AlunoDetailPage({ params }: AlunoDetailPageProps) 
                 <p className="text-gray-500 text-sm text-center py-4">Nenhum treino encontrado</p>
               ) : (
                 <div className="space-y-3">
-                  {treinos.map((treino) => (
+                  {treinos.map((treino: any) => (
                     <div key={treino.id} className="flex items-center justify-between py-2 border-b border-gym-border last:border-0">
                       <div>
                         <p className="text-sm font-medium">{treino.nome}</p>
