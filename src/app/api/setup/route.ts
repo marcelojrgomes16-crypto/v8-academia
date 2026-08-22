@@ -124,10 +124,10 @@ export async function GET(request: NextRequest) {
         }
 
         await prisma.cobranca.createMany({ data: [
-          { alunoId: joao.aluno!.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth(), 10), status: 'PAGO', dataPagamento: new Date() },
-          { alunoId: joao.aluno!.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), status: 'PENDENTE' },
+          { alunoId: joao.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth(), 10), status: 'PAGO', dataPagamento: new Date() },
+          { alunoId: joao.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), status: 'PENDENTE' },
         ]})
-        await prisma.pagamento.create({ data: { alunoId: joao.aluno!.id, planoId: planoPremium?.id || pl1.id, valor: 149.90, status: 'PAGO', metodo: 'Pix', dataPagamento: new Date(), dataVencimento: new Date() } })
+        await prisma.pagamento.create({ data: { alunoId: joao.id, planoId: planoPremium?.id || pl1.id, valor: 149.90, status: 'PAGO', metodo: 'Pix', dataPagamento: new Date(), dataVencimento: new Date() } })
         logs.push('Aluno Joao criado com treinos e boletos')
       } catch (e: any) {
         logs.push(`Erro ao criar Joao: ${e?.message || String(e)}`)
@@ -170,10 +170,10 @@ export async function GET(request: NextRequest) {
         }
 
         await prisma.cobranca.createMany({ data: [
-          { alunoId: maria.aluno!.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth(), 10), status: 'PAGO', dataPagamento: new Date() },
-          { alunoId: maria.aluno!.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), status: 'PENDENTE' },
+          { alunoId: maria.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth(), 10), status: 'PAGO', dataPagamento: new Date() },
+          { alunoId: maria.id, valor: 149.90, descricao: 'Mensalidade Premium', dataVencimento: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), status: 'PENDENTE' },
         ]})
-        await prisma.pagamento.create({ data: { alunoId: maria.aluno!.id, planoId: planoPremium?.id || pl1.id, valor: 149.90, status: 'PAGO', metodo: 'Cartao', dataPagamento: new Date(), dataVencimento: new Date() } })
+        await prisma.pagamento.create({ data: { alunoId: maria.id, planoId: planoPremium?.id || pl1.id, valor: 149.90, status: 'PAGO', metodo: 'Cartao', dataPagamento: new Date(), dataVencimento: new Date() } })
         logs.push('Aluna Maria criada com treinos e boletos')
       } catch (e: any) {
         logs.push(`Erro ao criar Maria: ${e?.message || String(e)}`)
