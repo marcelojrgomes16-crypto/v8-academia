@@ -1,14 +1,12 @@
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/session'
-import { prisma } from '@/lib/prisma';
-import { formatDate, getInitials } from '@/lib/utils'
+import { prisma } from '@/lib/prisma'
+import { formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import Link from 'next/link'
-import { Dumbbell, Calendar, TrendingUp, Clock } from 'lucide-react'
+import { Dumbbell, Calendar, ArrowRight } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,12 +17,11 @@ export default async function DashboardPage() {
   const userId = session.user.id
   const hoje = new Date()
 
-  const [treinos, agendamentos, avaliacoes, checkins] = await Promise.all([
+  const [treinos, agendamentos] = await Promise.all([
     prisma.treino.findMany({
       where: { alunoId: userId, status: 'ATIVO' },
       include: { exercicios: { include: { exercicio: true } } },
       orderBy: { updatedAt: 'desc' },
-      take: 3,
     }),
     prisma.agendamento.findMany({
       where: {
@@ -34,29 +31,9 @@ export default async function DashboardPage() {
       },
       include: { aula: true },
       orderBy: { dataHora: 'asc' },
-      take: 5,
-    }),
-    prisma.avaliacaoFisica.findFirst({
-      where: { alunoId: userId },
-      orderBy: { data: 'desc' },
-    }),
-    prisma.checkin.findMany({
-      where: { alunoId: userId },
-      orderBy: { dataHora: 'desc' },
-      take: 1,
+      take: 3,
     }),
   ])
-
-  const totalTreinos = await prisma.treino.count({
-    where: { alunoId: userId, status: 'ATIVO' },
-  })
-  const totalAgendamentos = await prisma.agendamento.count({
-    where: {
-      alunoId: userId,
-      status: { in: ['AGENDADO', 'CONFIRMADO'] },
-      dataHora: { gte: hoje },
-    },
-  })
 
   const treinosHoje = treinos.filter((t) => {
     const dias = (t.diasSemana || []) as number[]
@@ -66,242 +43,126 @@ export default async function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-fade-in">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-white">
-              Bem-vindo, {session.user.name?.split(' ')[0]}!
-            </h1>
-            <p className="text-gray-400">Acompanhe seus treinos e agendamentos</p>
-          </div>
-          <div className="flex gap-2">
-            <Link href="/dashboard/treinos">
-              <Button>
-                <Dumbbell className="mr-2 h-4 w-4" />
-                Meus Treinos
-              </Button>
-            </Link>
-            <Link href="/dashboard/agendamentos">
-              <Button variant="outline">
-                <Calendar className="mr-2 h-4 w-4" />
-                Agendar Aula
-              </Button>
-            </Link>
-          </div>
+      <div className="space-y-8 animate-fade-in">
+        <div>
+          <h1 className="text-3xl font-bold text-white">
+            Ola, {session.user.name?.split(' ')[0]}!
+          </h1>
+          <p className="text-gray-400 mt-1">
+            {hoje.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
+          </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card className="card-hover">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">
-                Treinos Ativos
-              </CardTitle>
-              <Dumbbell className="h-4 w-4 text-red-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalTreinos}</div>
-              <p className="text-xs text-gray-500">Treinos em andamento</p>
-            </CardContent>
-          </Card>
-
-          <Card className="card-hover">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">
-                Agendamentos
-              </CardTitle>
-              <Calendar className="h-4 w-4 text-red-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalAgendamentos}</div>
-              <p className="text-xs text-gray-500">Próximas aulas agendadas</p>
-            </CardContent>
-          </Card>
-
-          <Card className="card-hover">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">
-                IMC Atual
-              </CardTitle>
-              <TrendingUp className="h-4 w-4 text-red-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {avaliacoes
-                  ? (avaliacoes.imc as number).toFixed(1)
-                  : '—'}
+        <Card className="bg-gradient-to-br from-red-900/30 to-[#141414] border-red-900/30">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
+                <Dumbbell className="h-7 w-7 text-white" />
               </div>
-              <p className="text-xs text-gray-500">
-                {avaliacoes
-                  ? `Última: ${formatDate(avaliacoes.data)}`
-                  : 'Nenhuma avaliação'}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="card-hover">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">
-                Último Check-in
-              </CardTitle>
-              <Clock className="h-4 w-4 text-red-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {checkins[0]
-                  ? formatDate(checkins[0].dataHora)
-                  : '—'}
+              <div className="flex-1">
+                <h2 className="text-lg font-bold text-white">
+                  {treinosHoje.length > 0
+                    ? `${treinosHoje.length} treino${treinosHoje.length > 1 ? 's' : ''} para hoje`
+                    : 'Nenhum treino para hoje'}
+                </h2>
+                <p className="text-sm text-gray-400">
+                  {treinosHoje.length > 0
+                    ? 'Toque para iniciar seu treino'
+                    : 'Aproveite para descansar ou agende uma aula'}
+                </p>
               </div>
-              <p className="text-xs text-gray-500">
-                {checkins[0] ? 'Academia' : 'Nenhum registro'}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+              {treinosHoje.length > 0 && (
+                <Link href={`/dashboard/treinos/${treinosHoje[0].id}`}>
+                  <Badge className="bg-red-600 hover:bg-red-700 cursor-pointer px-4 py-2 text-sm">
+                    Iniciar <ArrowRight className="h-4 w-4 ml-1" />
+                  </Badge>
+                </Link>
+              )}
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="grid gap-4 lg:grid-cols-2">
           <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Dumbbell className="h-5 w-5 text-red-400" />
-                Treinos de Hoje
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Dumbbell className="h-4 w-4 text-red-400" />
+                Meus Treinos
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              {treinosHoje.length === 0 ? (
-                <div className="text-center py-8">
-                  <Dumbbell className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-400">Nenhum treino para hoje</p>
-                  <Link
-                    href="/dashboard/treinos"
-                    className="text-red-400 hover:underline text-sm mt-2 inline-block"
-                  >
-                    Ver todos os treinos →
-                  </Link>
-                </div>
+            <CardContent className="space-y-2">
+              {treinos.length === 0 ? (
+                <p className="text-gray-500 text-sm py-4 text-center">Nenhum treino ativo</p>
               ) : (
-                <div className="space-y-3">
-                  {treinosHoje.map((treino) => (
+                <>
+                  {treinos.slice(0, 4).map((treino) => (
                     <Link
                       key={treino.id}
                       href={`/dashboard/treinos/${treino.id}`}
                       className="flex items-center justify-between p-3 rounded-lg bg-gym-dark border border-gym-border hover:border-red-500/50 transition-colors"
                     >
-                      <div>
-                        <p className="font-medium">{treino.nome}</p>
-                        <p className="text-sm text-gray-400">
-                          {treino.exercicios.length} exercícios
-                        </p>
+                      <div className="flex items-center gap-3">
+                        {treino.exercicios[0]?.exercicio.imagemUrl ? (
+                          <img
+                            src={treino.exercicios[0].exercicio.imagemUrl}
+                            alt=""
+                            className="h-10 w-10 rounded-lg object-cover"
+                          />
+                        ) : (
+                          <div className="h-10 w-10 rounded-lg bg-red-600/20 flex items-center justify-center">
+                            <Dumbbell className="h-5 w-5 text-red-400" />
+                          </div>
+                        )}
+                        <div>
+                          <p className="font-medium text-sm">{treino.nome}</p>
+                          <p className="text-xs text-gray-500">{treino.exercicios.length} exercicios</p>
+                        </div>
                       </div>
-                      <Badge variant="success">Iniciar</Badge>
+                      <ArrowRight className="h-4 w-4 text-gray-600" />
                     </Link>
                   ))}
-                </div>
+                  {treinos.length > 4 && (
+                    <Link href="/dashboard/treinos" className="block text-center text-sm text-red-400 hover:text-red-300 pt-2">
+                      Ver todos ({treinos.length})
+                    </Link>
+                  )}
+                </>
               )}
             </CardContent>
           </Card>
 
           <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-red-400" />
-                Próximos Agendamentos
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Calendar className="h-4 w-4 text-red-400" />
+                Proximas Aulas
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-2">
               {agendamentos.length === 0 ? (
-                <div className="text-center py-8">
-                  <Calendar className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-400">Nenhum agendamento futuro</p>
-                  <Link
-                    href="/dashboard/agendamentos"
-                    className="text-red-400 hover:underline text-sm mt-2 inline-block"
-                  >
-                    Agendar aula →
-                  </Link>
-                </div>
+                <p className="text-gray-500 text-sm py-4 text-center">Nenhuma aula agendada</p>
               ) : (
-                <div className="space-y-3">
-                  {agendamentos.map((agendamento) => (
-                    <div
-                      key={agendamento.id}
-                      className="flex items-center justify-between p-3 rounded-lg bg-gym-dark border border-gym-border"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600/20">
-                          <Calendar className="h-5 w-5 text-red-400" />
-                        </div>
-                        <div>
-                          <p className="font-medium">
-                            {agendamento.aula?.nome || 'Aula Personalizada'}
-                          </p>
-                          <p className="text-sm text-gray-400">
-                            {formatDate(agendamento.dataHora)} às{' '}
-                            {agendamento.dataHora.toLocaleTimeString('pt-BR', {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge
-                        variant={
-                          agendamento.status === 'CONFIRMADO'
-                            ? 'success'
-                            : 'outline'
-                        }
-                      >
-                        {agendamento.status}
-                      </Badge>
+                agendamentos.map((ag) => (
+                  <div
+                    key={ag.id}
+                    className="flex items-center justify-between p-3 rounded-lg bg-gym-dark border border-gym-border"
+                  >
+                    <div>
+                      <p className="font-medium text-sm">{ag.aula?.nome || 'Aula'}</p>
+                      <p className="text-xs text-gray-500">
+                        {formatDate(ag.dataHora)} as{' '}
+                        {ag.dataHora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
-                  ))}
-                </div>
+                    <Badge variant={ag.status === 'CONFIRMADO' ? 'success' : 'outline'} className="text-xs">
+                      {ag.status}
+                    </Badge>
+                  </div>
+                ))
               )}
             </CardContent>
           </Card>
         </div>
-
-        {avaliacoes && (
-          <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-red-400" />
-                Progresso Recente
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-4">
-                <div className="text-center p-4 rounded-lg bg-gym-dark border border-gym-border">
-                  <div className="text-3xl font-bold text-red-400">
-                    {(avaliacoes.peso as number).toFixed(1)}kg
-                  </div>
-                  <div className="text-sm text-gray-400">Peso</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gym-dark border border-gym-border">
-                  <div className="text-3xl font-bold text-red-400">
-                    {(avaliacoes.imc as number).toFixed(1)}
-                  </div>
-                  <div className="text-sm text-gray-400">IMC</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gym-dark border border-gym-border">
-                  <div className="text-3xl font-bold text-red-400">
-                    {avaliacoes.percentualGordura
-                      ? `${(avaliacoes.percentualGordura as number).toFixed(1)}%`
-                      : '—'}
-                  </div>
-                  <div className="text-sm text-gray-400">% Gordura</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gym-dark border border-gym-border">
-                  <div className="text-3xl font-bold text-red-400">
-                    {avaliacoes.massaMuscular
-                      ? `${(avaliacoes.massaMuscular as number).toFixed(1)}kg`
-                      : '—'}
-                  </div>
-                  <div className="text-sm text-gray-400">Massa Magra</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
       </div>
     </DashboardLayout>
   )

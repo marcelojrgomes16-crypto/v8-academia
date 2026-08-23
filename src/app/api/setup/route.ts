@@ -65,21 +65,38 @@ export async function GET(request: NextRequest) {
     const exCount = await prisma.exercicio.count()
     if (exCount === 0) {
       await prisma.exercicio.createMany({ data: [
-        { nome: 'Supino Reto', grupoMuscular: 'Peito', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80' },
-        { nome: 'Agachamento', grupoMuscular: 'Pernas', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80' },
-        { nome: 'Puxada Frontal', grupoMuscular: 'Costas', equipamento: 'Polia', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=400&q=80' },
-        { nome: 'Desenvolvimento', grupoMuscular: 'Ombros', equipamento: 'Halteres', imagemUrl: 'https://images.unsplash.com/photo-1616803689943-5601631c7fec?w=400&q=80' },
-        { nome: 'Rosca Direta', grupoMuscular: 'Biceps', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80' },
-        { nome: 'Triceps Pulley', grupoMuscular: 'Triceps', equipamento: 'Polia', imagemUrl: 'https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80' },
-        { nome: 'Leg Press', grupoMuscular: 'Pernas', equipamento: 'Maquina', imagemUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80' },
-        { nome: 'Abdominal Crunch', grupoMuscular: 'Abdomen', equipamento: 'Nenhum', imagemUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80' },
-        { nome: 'Elevacao Lateral', grupoMuscular: 'Ombros', equipamento: 'Halteres', imagemUrl: 'https://images.unsplash.com/photo-1616803689943-5601631c7fec?w=400&q=80' },
-        { nome: 'Remada Curvada', grupoMuscular: 'Costas', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=400&q=80' },
+        { nome: 'Supino Reto', grupoMuscular: 'Peito', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1571019614534-7bbb3c64b48f?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/rT7DgCr-3pg' },
+        { nome: 'Agachamento', grupoMuscular: 'Pernas', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/bEv6CCg2BC8' },
+        { nome: 'Puxada Frontal', grupoMuscular: 'Costas', equipamento: 'Polia', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/CAwf7n6Luuc' },
+        { nome: 'Desenvolvimento', grupoMuscular: 'Ombros', equipamento: 'Halteres', imagemUrl: 'https://images.unsplash.com/photo-1616803689943-5601631c7fec?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/qEwKCR5JCog' },
+        { nome: 'Rosca Direta', grupoMuscular: 'Biceps', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/kwGIIetA0mI' },
+        { nome: 'Triceps Pulley', grupoMuscular: 'Triceps', equipamento: 'Polia', imagemUrl: 'https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/2-LAMcpzODU' },
+        { nome: 'Leg Press', grupoMuscular: 'Pernas', equipamento: 'Maquina', imagemUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/IZxyjW7MPJQ' },
+        { nome: 'Abdominal Crunch', grupoMuscular: 'Abdomen', equipamento: 'Nenhum', imagemUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/Xyd_fa5zoEU' },
+        { nome: 'Elevacao Lateral', grupoMuscular: 'Ombros', equipamento: 'Halteres', imagemUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/3VcKaXpzqRo' },
+        { nome: 'Remada Curvada', grupoMuscular: 'Costas', equipamento: 'Barra', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/Fkzk_RQL2gU' },
       ]})
       logs.push('Exercicios criados')
     } else {
       logs.push(`${exCount} exercicios ja existiam`)
     }
+
+    const exUpdates: Array<{ nome: string; imagemUrl: string; videoUrl: string }> = [
+      { nome: 'Supino Reto', imagemUrl: 'https://images.unsplash.com/photo-1571019614534-7bbb3c64b48f?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/rT7DgCr-3pg' },
+      { nome: 'Agachamento', imagemUrl: 'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/bEv6CCg2BC8' },
+      { nome: 'Puxada Frontal', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/CAwf7n6Luuc' },
+      { nome: 'Desenvolvimento', imagemUrl: 'https://images.unsplash.com/photo-1616803689943-5601631c7fec?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/qEwKCR5JCog' },
+      { nome: 'Rosca Direta', imagemUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/kwGIIetA0mI' },
+      { nome: 'Triceps Pulley', imagemUrl: 'https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/2-LAMcpzODU' },
+      { nome: 'Leg Press', imagemUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/IZxyjW7MPJQ' },
+      { nome: 'Abdominal Crunch', imagemUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/Xyd_fa5zoEU' },
+      { nome: 'Elevacao Lateral', imagemUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/3VcKaXpzqRo' },
+      { nome: 'Remada Curvada', imagemUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?w=500&q=80', videoUrl: 'https://www.youtube.com/embed/Fkzk_RQL2gU' },
+    ]
+    for (const u of exUpdates) {
+      await prisma.exercicio.updateMany({ where: { nome: u.nome }, data: { imagemUrl: u.imagemUrl, videoUrl: u.videoUrl } })
+    }
+    logs.push('Urls de exercicios atualizadas')
 
     const exList = await prisma.exercicio.findMany()
     const exByName = (n: string) => exList.find(e => e.nome === n)
