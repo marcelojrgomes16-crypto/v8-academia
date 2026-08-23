@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
-import { Calendar, Clock, Plus, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Calendar, Clock, Plus, XCircle, AlertCircle } from 'lucide-react'
+import { ConfirmButton } from './confirm-button'
 
 export const dynamic = 'force-dynamic'
 
@@ -113,12 +114,7 @@ export default async function AgendamentosPage() {
                         {statusConfig[agendamento.status]?.label || agendamento.status}
                       </Badge>
                       {agendamento.status === 'AGENDADO' && (
-                        <form action="/api/agendamentos/confirmar" method="POST">
-                          <input type="hidden" name="id" value={agendamento.id} />
-                          <Button type="submit" size="sm" variant="outline">
-                            <CheckCircle className="h-4 w-4" />
-                          </Button>
-                        </form>
+                        <ConfirmButton agendamentoId={agendamento.id} />
                       )}
                     </div>
                   </div>

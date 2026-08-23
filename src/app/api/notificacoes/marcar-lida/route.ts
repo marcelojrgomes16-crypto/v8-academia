@@ -6,7 +6,7 @@ import { z } from 'zod'
 export const dynamic = 'force-dynamic'
 
 const marcarLidaSchema = z.object({
-  ids: z.array(z.string()).min(1, 'Pelo menos uma notificação deve ser informada'),
+  ids: z.array(z.string()),
 })
 
 export async function POST(request: NextRequest) {
@@ -19,11 +19,12 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { ids } = marcarLidaSchema.parse(body)
 
+    const where = ids.length > 0
+      ? { id: { in: ids }, usuarioId: session.user.id }
+      : { usuarioId: session.user.id, lida: false }
+
     const result = await prisma.notificacao.updateMany({
-      where: {
-        id: { in: ids },
-        usuarioId: session.user.id,
-      },
+      where,
       data: { lida: true },
     })
 

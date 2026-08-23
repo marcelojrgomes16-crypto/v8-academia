@@ -6,10 +6,8 @@ import { z } from 'zod'
 export const dynamic = 'force-dynamic'
 
 const createAgendamentoSchema = z.object({
-  alunoId: z.string().min(1, 'ID do aluno é obrigatório'),
-  professorId: z.string().optional(),
   aulaId: z.string().optional(),
-  dataHora: z.string().datetime('Data/hora inválida'),
+  dataHora: z.string().min(1, 'Data e hora são obrigatórios'),
   observacoes: z.string().optional(),
 })
 
@@ -55,8 +53,7 @@ export async function POST(request: NextRequest) {
 
     const agendamento = await prisma.agendamento.create({
       data: {
-        alunoId: data.alunoId,
-        professorId: data.professorId ?? null,
+        alunoId: session.user.id,
         aulaId: data.aulaId ?? null,
         dataHora: new Date(data.dataHora),
         observacoes: data.observacoes ?? null,

@@ -24,7 +24,7 @@ export function MarkAsReadButton({
       const res = await fetch('/api/notificacoes/marcar-lida', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(id ? { id } : { all: true }),
+        body: JSON.stringify(id ? { ids: [id] } : { ids: [] }),
       })
 
       if (!res.ok) throw new Error('Erro ao marcar como lida')
