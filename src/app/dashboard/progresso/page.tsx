@@ -46,13 +46,13 @@ export default async function ProgressoPage() {
           <p className="text-gray-400 text-sm mt-1">Acompanhe sua evolucao na academia</p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
           <Card className="bg-[#141414] border-red-900/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-400">Treinos Totais</p>
-                  <p className="text-3xl font-bold text-white mt-1">{totalTreinos}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-white mt-1">{totalTreinos}</p>
                 </div>
                 <Target className="h-8 w-8 text-red-400" />
               </div>
@@ -63,7 +63,7 @@ export default async function ProgressoPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-400">Treinos Concluidos</p>
-                  <p className="text-3xl font-bold text-green-400 mt-1">{treinosConcluidos}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-green-400 mt-1">{treinosConcluidos}</p>
                 </div>
                 <Zap className="h-8 w-8 text-green-400" />
               </div>
@@ -74,7 +74,7 @@ export default async function ProgressoPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-400">Check-ins</p>
-                  <p className="text-3xl font-bold text-blue-400 mt-1">{totalCheckins}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-blue-400 mt-1">{totalCheckins}</p>
                 </div>
                 <Calendar className="h-8 w-8 text-blue-400" />
               </div>
@@ -85,7 +85,7 @@ export default async function ProgressoPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-400">IMC Atual</p>
-                  <p className="text-3xl font-bold text-white mt-1">
+                  <p className="text-2xl md:text-3xl font-bold text-white mt-1">
                     {avaliacaoRecente ? (avaliacaoRecente.imc as number).toFixed(1) : '—'}
                   </p>
                 </div>

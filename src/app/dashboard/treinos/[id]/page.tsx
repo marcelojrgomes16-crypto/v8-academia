@@ -62,7 +62,7 @@ export default async function TreinoDetailPage({ params }: { params: { id: strin
                   <img
                     src={ex.exercicio.imagemUrl}
                     alt={ex.exercicio.nome}
-                    className="w-full h-56 sm:h-64 object-cover"
+                    className="w-full h-40 sm:h-56 md:h-64 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute top-3 left-3">
@@ -84,7 +84,7 @@ export default async function TreinoDetailPage({ params }: { params: { id: strin
                     </a>
                   )}
                   <div className="absolute bottom-3 left-3">
-                    <h3 className="font-bold text-xl text-white">{ex.exercicio.nome}</h3>
+                    <h3 className="font-bold text-lg sm:text-xl text-white">{ex.exercicio.nome}</h3>
                     <Badge variant="outline" className="mt-1 text-xs border-white/20 text-white">
                       {ex.exercicio.grupoMuscular}
                     </Badge>

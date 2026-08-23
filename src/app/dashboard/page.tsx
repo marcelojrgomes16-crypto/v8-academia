@@ -43,9 +43,9 @@ export default async function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 animate-fade-in">
+      <div className="space-y-5 sm:space-y-8 animate-fade-in">
         <div>
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">
             Ola, {session.user.name?.split(' ')[0]}!
           </h1>
           <p className="text-gray-400 mt-1">
@@ -54,9 +54,9 @@ export default async function DashboardPage() {
         </div>
 
         <Card className="bg-gradient-to-br from-red-900/30 to-[#141414] border-red-900/30">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
                 <Dumbbell className="h-7 w-7 text-white" />
               </div>
               <div className="flex-1">

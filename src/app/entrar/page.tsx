@@ -75,10 +75,10 @@ function AlunoLoginForm() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[420px] px-6">
+      <div className="relative z-10 w-full max-w-[420px] px-4 sm:px-6">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <svg viewBox="0 0 300 140" className="w-[240px] mx-auto" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 300 140" className="w-[180px] sm:w-[240px] mx-auto" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#ef4444" />
@@ -96,7 +96,7 @@ function AlunoLoginForm() {
         </div>
 
         <div
-          className="rounded-2xl p-8"
+          className="rounded-2xl p-5 sm:p-8"
           style={{
             background: 'linear-gradient(180deg, rgba(20,10,10,0.85) 0%, rgba(10,5,5,0.92) 100%)',
             border: '1px solid rgba(127,29,29,0.2)',

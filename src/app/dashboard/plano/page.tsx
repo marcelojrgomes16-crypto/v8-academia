@@ -41,17 +41,17 @@ export default async function PlanoPage() {
 
         <Card className="bg-[#141414] border-red-900/20 overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-red-600 to-red-800" />
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
               <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-2xl font-bold text-white">{aluno.plano?.nome || 'Sem plano'}</h2>
+                <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">{aluno.plano?.nome || 'Sem plano'}</h2>
                   <Badge variant={aluno.plano?.ativo ? 'success' : 'warning'}>
                     {aluno.plano?.ativo ? 'Ativo' : 'Inativo'}
                   </Badge>
                 </div>
                 <p className="text-gray-400 mb-4">{aluno.plano?.descricao || 'Plano de acadimia V8'}</p>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-400">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="h-4 w-4" />
                     Matricula: {formatDate(aluno.dataMatricula)}
@@ -71,7 +71,7 @@ export default async function PlanoPage() {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-4xl font-black text-red-500">
+                <p className="text-2xl sm:text-3xl md:text-4xl font-black text-red-500">
                   {formatCurrency(aluno.plano?.preco || 0)}
                 </p>
                 <p className="text-sm text-gray-400">/mes</p>

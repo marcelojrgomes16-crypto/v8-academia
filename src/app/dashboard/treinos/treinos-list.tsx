@@ -83,7 +83,7 @@ export function TreinosList({ treinos, perfil }: TreinosPageProps) {
               <Link key={treino.id} href={`/dashboard/treinos/${treino.id}`}>
                 <Card className="hover:border-red-500/50 transition-all overflow-hidden cursor-pointer h-full">
                   {firstImg ? (
-                    <div className="h-40 relative overflow-hidden">
+                    <div className="h-32 sm:h-40 relative overflow-hidden">
                       <img src={firstImg} alt={treino.nome} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                       <div className="absolute bottom-3 left-3 right-3">

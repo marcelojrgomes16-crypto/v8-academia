@@ -49,7 +49,7 @@ export default async function BoletosPage() {
           <p className="text-gray-400 text-sm mt-1">Acompanhe suas cobrancas e pagamentos</p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
           <Card className="bg-[#141414] border-red-900/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
@@ -95,7 +95,7 @@ export default async function BoletosPage() {
 
         {cobrancas.length === 0 ? (
           <Card className="bg-[#141414] border-red-900/20">
-            <CardContent className="flex flex-col items-center justify-center py-16">
+            <CardContent className="flex flex-col items-center justify-center py-10 sm:py-16">
               <CreditCard className="h-16 w-16 text-gray-600 mb-4" />
               <h3 className="text-lg font-medium text-gray-300 mb-2">Nenhum boleto encontrado</h3>
               <p className="text-gray-500 text-center max-w-md">
@@ -116,7 +116,7 @@ export default async function BoletosPage() {
                           {statusLabel[cob.status]}
                         </Badge>
                       </div>
-                      <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-400">
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400">
                         <span>Vencimento: {formatDate(cob.dataVencimento)}</span>
                         {cob.dataPagamento && (
                           <span>Pago em: {formatDate(cob.dataPagamento)}</span>
@@ -126,8 +126,8 @@ export default async function BoletosPage() {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <p className="text-xl font-bold text-white">{formatCurrency(cob.valor)}</p>
+                    <div className="flex items-center gap-2 sm:gap-4">
+                      <p className="text-lg sm:text-xl font-bold text-white">{formatCurrency(cob.valor)}</p>
                       {cob.status === 'PENDENTE' || cob.status === 'ATRASADO' ? (
                         <Button size="sm" className="bg-green-600 hover:bg-green-700">
                           <CheckCircle className="h-4 w-4 mr-2" />
