@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function ProgressoPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const userId = session.user.id
 

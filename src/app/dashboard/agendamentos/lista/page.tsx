@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function AgendamentosListaPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const agendamentos = await prisma.agendamento.findMany({
     where: { alunoId: session.user.id },

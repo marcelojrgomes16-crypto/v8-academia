@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Play, Clock, Repeat, Dumbbell, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { Clock, Repeat, Dumbbell, CheckCircle, ChevronDown, ChevronUp, Image } from 'lucide-react'
 
 interface ExercicioData {
   id: string
@@ -20,24 +20,28 @@ interface ExercicioData {
   }
 }
 
-function extractYoutubeId(url: string): string | null {
-  const match = url.match(/(?:youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/)
-  return match ? match[1] : null
-}
-
 export function ExerciseCard({ ex, idx }: { ex: ExercicioData; idx: number }) {
-  const [showVideo, setShowVideo] = React.useState(false)
-  const youtubeId = ex.exercicio.videoUrl ? extractYoutubeId(ex.exercicio.videoUrl) : null
+  const [showDetails, setShowDetails] = React.useState(false)
+  const hasGif = ex.exercicio.imagemUrl && ex.exercicio.imagemUrl.includes('.gif')
 
   return (
     <Card className="overflow-hidden bg-[#141414] border-red-900/20">
       {ex.exercicio.imagemUrl && (
         <div className="relative">
-          <img
-            src={ex.exercicio.imagemUrl}
-            alt={ex.exercicio.nome}
-            className="w-full h-40 sm:h-56 md:h-64 object-cover"
-          />
+          {hasGif ? (
+            <img
+              src={ex.exercicio.imagemUrl}
+              alt={ex.exercicio.nome}
+              className="w-full h-48 sm:h-64 md:h-72 object-contain bg-black"
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={ex.exercicio.imagemUrl}
+              alt={ex.exercicio.nome}
+              className="w-full h-40 sm:h-56 md:h-64 object-cover"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
           <div className="absolute top-3 left-3">
             <Badge className="bg-red-600 text-white font-bold">{idx + 1}</Badge>
@@ -82,24 +86,22 @@ export function ExerciseCard({ ex, idx }: { ex: ExercicioData; idx: number }) {
           </div>
         </div>
 
-        {youtubeId && (
+        {hasGif && (
           <div>
             <button
-              onClick={() => setShowVideo(!showVideo)}
-              className="w-full flex items-center justify-center gap-2 p-3 rounded-lg bg-red-600/10 border border-red-600/20 text-red-400 hover:bg-red-600/20 transition-colors text-sm font-medium"
+              onClick={() => setShowDetails(!showDetails)}
+              className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 transition-colors text-sm font-medium"
             >
-              <Play className="h-4 w-4" />
-              {showVideo ? 'Fechar video' : 'Ver como fazer'}
-              {showVideo ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+              <Image className="h-4 w-4" />
+              {showDetails ? 'Fechar demonstracao' : 'Ver demonstracao'}
+              {showDetails ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </button>
-            {showVideo && (
-              <div className="mt-3 aspect-video rounded-lg overflow-hidden bg-black">
-                <iframe
-                  src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
-                  title={`Video: ${ex.exercicio.nome}`}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+            {showDetails && (
+              <div className="mt-3 rounded-lg overflow-hidden bg-black flex items-center justify-center">
+                <img
+                  src={ex.exercicio.imagemUrl!}
+                  alt={`Demonstracao: ${ex.exercicio.nome}`}
+                  className="w-full max-h-80 object-contain"
                 />
               </div>
             )}

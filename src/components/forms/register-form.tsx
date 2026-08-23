@@ -67,7 +67,7 @@ export function RegisterForm() {
         throw new Error(error.message || 'Erro ao cadastrar')
       }
 
-      router.push('/login?registered=true')
+      router.push('/entrar?registered=true')
     } catch (error) {
       console.error(error)
       alert(error instanceof Error ? error.message : 'Erro ao cadastrar')
@@ -241,7 +241,7 @@ export function RegisterForm() {
         <Separator />
         <p className="text-sm text-gray-400 text-center">
           Já tem conta?{' '}
-          <Link href="/login" className="text-red-400 hover:underline font-medium">
+          <Link href="/entrar" className="text-red-400 hover:underline font-medium">
             Entrar
           </Link>
         </p>

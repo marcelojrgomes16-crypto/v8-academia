@@ -3,16 +3,16 @@ import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { CreditCard, Download, AlertCircle, CheckCircle, Clock } from 'lucide-react'
+import { CreditCard, CheckCircle, Clock } from 'lucide-react'
+import { BoletoActions } from './boleto-actions'
 
 export const dynamic = 'force-dynamic'
 
 export default async function BoletosPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const cobrancas = await prisma.cobranca.findMany({
     where: { alunoId: session.user.id },
@@ -128,17 +128,7 @@ export default async function BoletosPage() {
                     </div>
                     <div className="flex items-center gap-2 sm:gap-4">
                       <p className="text-lg sm:text-xl font-bold text-white">{formatCurrency(cob.valor)}</p>
-                      {cob.status === 'PENDENTE' || cob.status === 'ATRASADO' ? (
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                          <CheckCircle className="h-4 w-4 mr-2" />
-                          Pagar
-                        </Button>
-                      ) : (
-                        <Button size="sm" variant="outline">
-                          <Download className="h-4 w-4 mr-2" />
-                          Comprovante
-                        </Button>
-                      )}
+                      <BoletoActions cobrancaId={cob.id} status={cob.status} />
                     </div>
                   </div>
                 </CardContent>

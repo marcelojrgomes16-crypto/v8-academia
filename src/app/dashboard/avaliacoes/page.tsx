@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function AvaliacoesPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const avaliacoes = await prisma.avaliacaoFisica.findMany({
     where: { alunoId: session.user.id },

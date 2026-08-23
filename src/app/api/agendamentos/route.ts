@@ -45,11 +45,37 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getSession()
     if (!session?.user) {
-      return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
+      return NextResponse.json({ message: 'Nao autorizado' }, { status: 401 })
     }
 
     const body = await request.json()
     const data = createAgendamentoSchema.parse(body)
+
+    if (data.aulaId) {
+      const aula = await prisma.aula.findUnique({
+        where: { id: data.aulaId },
+        select: { id: true, ativa: true, maxAlunos: true },
+      })
+
+      if (!aula) {
+        return NextResponse.json({ message: 'Aula nao encontrada' }, { status: 404 })
+      }
+
+      if (!aula.ativa) {
+        return NextResponse.json({ message: 'Esta aula nao esta ativa' }, { status: 400 })
+      }
+
+      const countAgendamentos = await prisma.agendamento.count({
+        where: {
+          aulaId: data.aulaId,
+          status: { in: ['AGENDADO', 'CONFIRMADO'] },
+        },
+      })
+
+      if (aula.maxAlunos && countAgendamentos >= aula.maxAlunos) {
+        return NextResponse.json({ message: 'Esta aula atingiu o numero maximo de vagas' }, { status: 400 })
+      }
+    }
 
     const agendamento = await prisma.agendamento.create({
       data: {

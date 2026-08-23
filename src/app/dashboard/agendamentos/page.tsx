@@ -51,7 +51,7 @@ export default async function AgendamentosPage() {
   const session = await getSession()
 
   if (!session?.user) {
-    redirect('/login')
+    redirect('/entrar')
   }
 
   const { proximos, anteriores } = await getAgendamentos(session.user.id)

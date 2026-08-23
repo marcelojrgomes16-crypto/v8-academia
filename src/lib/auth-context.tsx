@@ -51,7 +51,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
     setUser(null)
-    window.location.href = '/login'
+    window.location.href = '/entrar'
   }
 
   return (

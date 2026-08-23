@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function PlanoPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const aluno = await prisma.aluno.findFirst({
     where: { usuarioId: session.user.id },

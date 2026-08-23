@@ -9,19 +9,25 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ArrowLeft, Calendar, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { useToast } from '@/hooks/use-toast'
 
-const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+const diasSemana = ['Domingo', 'Segunda-feira', 'Terca-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado']
 
 export default function NovoAgendamentoPage() {
   const router = useRouter()
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = React.useState(false)
+  const [carregandoAulas, setCarregandoAulas] = React.useState(true)
   const [aulas, setAulas] = React.useState<Array<{ id: string; nome: string; diaSemana: number; horaInicio: string; horaFim: string; professor: { nome: string } }>>([])
 
   React.useEffect(() => {
     fetch('/api/aulas')
       .then(res => res.json())
       .then(data => setAulas(data))
-      .catch(console.error)
+      .catch(() => {
+        toast({ title: 'Erro', description: 'Nao foi possivel carregar as aulas disponiveis.', variant: 'destructive' })
+      })
+      .finally(() => setCarregandoAulas(false))
   }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,9 +53,10 @@ export default function NovoAgendamentoPage() {
         throw new Error(error.message || 'Erro ao criar agendamento')
       }
 
+      toast({ title: 'Agendamento criado', description: 'Sua aula foi agendada com sucesso.', variant: 'success' })
       router.push('/dashboard/agendamentos')
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Erro ao criar agendamento')
+      toast({ title: 'Erro', description: error instanceof Error ? error.message : 'Erro ao criar agendamento', variant: 'destructive' })
     } finally {
       setIsLoading(false)
     }
@@ -86,19 +93,23 @@ export default function NovoAgendamentoPage() {
                   id="aulaId"
                   name="aulaId"
                   required
-                  className="flex h-10 w-full rounded-md border border-gym-border bg-gym-dark px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  disabled={carregandoAulas}
+                  className="flex h-10 w-full rounded-md border border-gym-border bg-gym-dark px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
                 >
-                  <option value="">Selecione uma aula</option>
+                  <option value="">{carregandoAulas ? 'Carregando aulas...' : 'Selecione uma aula'}</option>
                   {aulas.map((aula) => (
                     <option key={aula.id} value={aula.id}>
                       {aula.nome} - {diasSemana[aula.diaSemana]} ({aula.horaInicio} - {aula.horaFim}) - Prof. {aula.professor.nome}
                     </option>
                   ))}
                 </select>
+                {!carregandoAulas && aulas.length === 0 && (
+                  <p className="text-xs text-yellow-400">Nenhuma aula disponivel no momento</p>
+                )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="dataHora">Data e Horário</Label>
+                <Label htmlFor="dataHora">Data e Horario</Label>
                 <Input
                   id="dataHora"
                   name="dataHora"
@@ -108,13 +119,13 @@ export default function NovoAgendamentoPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="observacoes">Observações (opcional)</Label>
+                <Label htmlFor="observacoes">Observacoes (opcional)</Label>
                 <textarea
                   id="observacoes"
                   name="observacoes"
                   rows={3}
                   className="flex w-full rounded-md border border-gym-border bg-gym-dark px-3 py-2 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
-                  placeholder="Alguma observação sobre o agendamento..."
+                  placeholder="Alguma observacao sobre o agendamento..."
                 />
               </div>
 

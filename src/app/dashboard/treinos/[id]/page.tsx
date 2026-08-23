@@ -9,12 +9,13 @@ import { ExerciseCard } from './exercise-card'
 
 export const dynamic = 'force-dynamic'
 
-export default async function TreinoDetailPage({ params }: { params: { id: string } }) {
+export default async function TreinoDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
+  const { id } = await params
   const treino = await prisma.treino.findFirst({
-    where: { id: params.id, alunoId: session.user.id },
+    where: { id, alunoId: session.user.id },
     include: {
       exercicios: {
         include: { exercicio: true },

@@ -1,11 +1,9 @@
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
 import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma';
 import { formatDate, maskCPF, maskPhone } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 
@@ -13,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function PerfilPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const usuario = await prisma.usuario.findUnique({
     where: { id: session.user.id },
@@ -26,7 +24,7 @@ export default async function PerfilPage() {
     },
   })
 
-  if (!usuario) redirect('/login')
+  if (!usuario) redirect('/entrar')
 
   const endereco = usuario.endereco as Record<string, string> | null
 
@@ -36,17 +34,9 @@ export default async function PerfilPage() {
         <div>
           <h1 className="text-2xl font-bold">Meu Perfil</h1>
           <p className="text-gray-400 text-sm mt-1">
-            Visualize e gerencie suas informações pessoais
+            Visualize suas informacoes pessoais
           </p>
         </div>
-        <Button asChild variant="outline">
-          <Link href="/dashboard/perfil/editar">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-            Editar Perfil
-          </Link>
-        </Button>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">

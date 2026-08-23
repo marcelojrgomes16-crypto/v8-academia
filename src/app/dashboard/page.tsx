@@ -5,6 +5,7 @@ import { formatDate } from '@/lib/utils'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Dumbbell, Calendar, ArrowRight } from 'lucide-react'
 
@@ -12,7 +13,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const userId = session.user.id
   const hoje = new Date()
@@ -73,9 +74,9 @@ export default async function DashboardPage() {
               </div>
               {treinosHoje.length > 0 && (
                 <Link href={`/dashboard/treinos/${treinosHoje[0].id}`}>
-                  <Badge className="bg-red-600 hover:bg-red-700 cursor-pointer px-4 py-2 text-sm">
+                  <Button size="sm" className="bg-red-600 hover:bg-red-700">
                     Iniciar <ArrowRight className="h-4 w-4 ml-1" />
-                  </Badge>
+                  </Button>
                 </Link>
               )}
             </div>

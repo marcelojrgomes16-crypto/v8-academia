@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function PagamentosPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const pagamentos = await prisma.pagamento.findMany({
     where: { alunoId: session.user.id },

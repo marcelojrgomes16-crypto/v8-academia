@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function TreinosPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const usuario = await prisma.usuario.findUnique({
     where: { id: session.user.id },

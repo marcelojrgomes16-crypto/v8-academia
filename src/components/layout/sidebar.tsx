@@ -11,7 +11,7 @@ import {
   CreditCard, Wallet, TrendingUp, ChevronDown,
   ChevronRight, Settings, LogOut, UserPlus, ClipboardList,
   DollarSign, UserCheck, List, Repeat,
-  Zap, Target, User
+  Zap, Target, User, Bell
 } from 'lucide-react'
 
 interface NavItem {
@@ -100,6 +100,13 @@ const alunoNavGroups: NavGroup[] = [
     items: [
       { name: 'Progresso', href: '/dashboard/progresso', icon: TrendingUp },
       { name: 'Avaliacoes', href: '/dashboard/avaliacoes', icon: Zap },
+    ],
+  },
+  {
+    title: 'CONTA',
+    items: [
+      { name: 'Meu Perfil', href: '/dashboard/perfil', icon: User },
+      { name: 'Notificacoes', href: '/dashboard/notificacoes', icon: Bell },
     ],
   },
 ]

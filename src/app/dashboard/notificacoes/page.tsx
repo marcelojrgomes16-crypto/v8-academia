@@ -18,7 +18,7 @@ const tipoConfig: Record<string, { label: string; variant: 'default' | 'info' | 
 
 export default async function NotificacoesPage() {
   const session = await getSession()
-  if (!session) redirect('/login')
+  if (!session) redirect('/entrar')
 
   const [notificacoes, unreadCount] = await Promise.all([
     prisma.notificacao.findMany({
