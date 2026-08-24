@@ -113,24 +113,6 @@ export default function HomePage() {
       </section>
 
       <section className="py-24 px-6 border-t border-red-900/10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            {[
-              { num: '500+', label: 'Alunos ativos' },
-              { num: '50+', label: 'Professores' },
-              { num: '1000+', label: 'Treinos executados' },
-              { num: '98%', label: 'Satisfacao' },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-4xl font-black text-red-500 mb-2">{stat.num}</p>
-                <p className="text-gray-400 text-sm uppercase tracking-wider">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 px-6 border-t border-red-900/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Pronto para comecar?</h2>
           <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
