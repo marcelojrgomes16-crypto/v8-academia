@@ -34,6 +34,7 @@ interface WorkoutDay {
   exercises: Exercise[]
 }
 
+const W = 'https://wger.de/media/exercise-images'
 const workoutData: WorkoutDay[] = [
   {
     id: 'segunda',
@@ -52,7 +53,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Agachamento-Sumo-com-Halter.gif',
+        image: `${W}/191/Front-squat-1-857x1024.png`,
         muscle: 'Gluteos, Adutores',
         tips: 'Mantenha as costas retas e joelhos alinhados com os pes'
       },
@@ -62,7 +63,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2022/02/Hip-Thrust.gif',
+        image: `${W}/161/Dead-lifts-2.png`,
         muscle: 'Gluteos',
         tips: 'Empurre os quadris para cima e contraia os gluteos no topo'
       },
@@ -72,9 +73,9 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Stiff.gif',
+        image: `${W}/161/Dead-lifts-1.png`,
         muscle: 'Posterior, Lombar',
-        tips: 'Mantenha leve flexao nos joelhos e desça devagar'
+        tips: 'Mantenha leve flexao nos joelhos e desca devagar'
       },
       {
         id: 'a4',
@@ -82,7 +83,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15-20',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2022/02/Abducao-de-Quadril-na-Maquina.gif',
+        image: `${W}/148/lateral-dumbbell-raises-large-1.png`,
         muscle: 'Gluteo Medio',
         tips: 'Controle o movimento e nao Use impulso'
       },
@@ -92,7 +93,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Elevacao-Pelvica.gif',
+        image: `${W}/128/Hyperextensions-1.png`,
         muscle: 'Gluteos, Abdomen',
         tips: 'Contraia o abdome no topo do movimento'
       },
@@ -102,7 +103,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2022/02/Cable-Pull-Through.gif',
+        image: `${W}/109/Barbell-rear-delt-row-1.png`,
         muscle: 'Posterior, Gluteos',
         tips: 'Mantenha os bracos esticados e mova os quadris'
       }
@@ -125,9 +126,9 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Supino-com-Halteres-no-Banco.gif',
+        image: `${W}/97/Dumbbell-bench-press-1.png`,
         muscle: 'Peito, Triceps',
-        tips: 'Desça os halteres devagar e empurre com controle'
+        tips: 'Desca os halteres devagar e empurre com controle'
       },
       {
         id: 'b2',
@@ -135,7 +136,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Desenvolvimento-com-Halteres.gif',
+        image: `${W}/123/dumbbell-shoulder-press-large-1.png`,
         muscle: 'Ombros, Trapezio',
         tips: 'Nao travar os cotovelos no topo'
       },
@@ -145,7 +146,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Crucifixo-na-Maquina.gif',
+        image: `${W}/98/Butterfly-machine-1.png`,
         muscle: 'Peito',
         tips: 'Mantenha leve flexao nos cotovelos'
       },
@@ -155,7 +156,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Triceps-Pulley.gif',
+        image: `${W}/83/Bench-dips-1.png`,
         muscle: 'Triceps',
         tips: 'Mantenha os cotovelos fixos ao lado do corpo'
       },
@@ -165,9 +166,9 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '30-45s',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Prancha.gif',
+        image: `${W}/91/Crunches-1.png`,
         muscle: 'Core, Abdomen',
-        tips: 'Mantenha o corpo reto como uma tábua'
+        tips: 'Mantenha o corpo reto como uma tabua'
       },
       {
         id: 'b6',
@@ -175,8 +176,8 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Russian-Twist.gif',
-        muscle: 'Oblíquos, Abdomen',
+        image: `${W}/176/Cross-body-crunch-1.png`,
+        muscle: 'Obliquos, Abdomen',
         tips: 'Gire o tronco completamente'
       }
     ]
@@ -198,9 +199,9 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Burpee.gif',
+        image: `${W}/113/Walking-lunges-1.png`,
         muscle: 'Corpo todo',
-        tips: 'Pise para frente ao invés de pular se estiver iniciando'
+        tips: 'Pise para frente ao inves de pular se estiver iniciando'
       },
       {
         id: 'c2',
@@ -208,7 +209,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Mountain-Climber.gif',
+        image: `${W}/93/Decline-crunch-1.png`,
         muscle: 'Core, Cardio',
         tips: 'Mantenha o quadril baixo e o ritmo alto'
       },
@@ -218,7 +219,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Jumping-Jack.gif',
+        image: `${W}/91/Crunches-2.png`,
         muscle: 'Cardio, Pernas',
         tips: 'Mantenha o ritmo constante'
       },
@@ -228,7 +229,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Bicicleta-no-Ar.gif',
+        image: `${W}/176/Cross-body-crunch-2.png`,
         muscle: 'Abdomen, Obliquos',
         tips: 'Encoste o cotovelo no joelho oposto'
       },
@@ -238,7 +239,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Elevacao-de-Pernas-deitado.gif',
+        image: `${W}/125/Leg-raises-1.png`,
         muscle: 'Abdomen Inferior',
         tips: 'Controle a descida para ativar mais o abdome'
       },
@@ -248,7 +249,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/High-Knees.gif',
+        image: `${W}/113/Walking-lunges-2.png`,
         muscle: 'Cardio, Pernas',
         tips: 'Leve os joelhos ao peito rapidamente'
       }
@@ -271,9 +272,9 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Agachamento-Livre.gif',
+        image: `${W}/191/Front-squat-2-857x1024.png`,
         muscle: 'Quadriceps, Gluteos',
-        tips: 'Desça ate parallel e mantenha o peito aberto'
+        tips: 'Desca ate paralelo e mantenha o peito aberto'
       },
       {
         id: 'd2',
@@ -281,7 +282,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Leg-Press-45.gif',
+        image: `${W}/130/Narrow-stance-hack-squats-1-1024x721.png`,
         muscle: 'Quadriceps, Gluteos',
         tips: 'Nao trave os joelhos no topo'
       },
@@ -291,9 +292,9 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12 cada perna',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Bulgarian-Split-Squat.gif',
+        image: `${W}/113/Walking-lunges-3.png`,
         muscle: 'Quadriceps, Gluteos',
-        tips: 'Mantenha o tronco ereto e desça devagar'
+        tips: 'Mantenha o tronco ereto e desca devagar'
       },
       {
         id: 'd4',
@@ -301,7 +302,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Cadeira-Flexora.gif',
+        image: `${W}/154/lying-leg-curl-machine-large-1.png`,
         muscle: 'Posterior, Isquiotibiais',
         tips: 'Controle o movimento nas duas fases'
       },
@@ -311,9 +312,9 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15-20',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Abducao-na-Maquina.gif',
+        image: `${W}/148/lateral-dumbbell-raises-large-2.png`,
         muscle: 'Gluteo Medio',
-        tips: 'Foque na contração no topo'
+        tips: 'Foque na contracao no topo'
       },
       {
         id: 'd6',
@@ -321,9 +322,9 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '15-20',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Elevacao-de-Panturrilha-em-Pe.gif',
+        image: `${W}/119/seated-barbell-shoulder-press-large-1.png`,
         muscle: 'Panturrilhas',
-        tips: 'Suba totalmente e desça devagar'
+        tips: 'Suba totalmente e desca devagar'
       }
     ]
   },
@@ -332,7 +333,7 @@ const workoutData: WorkoutDay[] = [
     day: 'Sexta-feira',
     dayShort: 'SEX',
     title: 'Treino E - Costas e Biceps',
-    focus: 'Foco: Costas, Trapézio e Bíceps',
+    focus: 'Foco: Costas, Trapezio e Biceps',
     color: 'from-blue-600 to-cyan-600',
     icon: <Dumbbell className="h-5 w-5" />,
     duration: '40-45 min',
@@ -344,7 +345,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Puxada-Frontal.gif',
+        image: `${W}/143/Cable-seated-rows-1.png`,
         muscle: 'Costas, Biceps',
         tips: 'Puxe ate o peito e contraia as escapulas'
       },
@@ -354,8 +355,8 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '60s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Remada-Curvada.gif',
-        muscle: 'Costas, Trapézio',
+        image: `${W}/106/T-bar-row-1.png`,
+        muscle: 'Costas, Trapezio',
         tips: 'Mantenha as costas retas e puxe com os cotovelos'
       },
       {
@@ -364,7 +365,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12 cada lado',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Remada-Unilateral-com-Halter.gif',
+        image: `${W}/143/Cable-seated-rows-2.png`,
         muscle: 'Costas, Core',
         tips: 'Nao gire o tronco, mantenha estavel'
       },
@@ -374,8 +375,8 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Face-Pull.gif',
-        muscle: 'Posterior Ombro, Trapézio',
+        image: `${W}/109/Barbell-rear-delt-row-2.png`,
+        muscle: 'Posterior Ombro, Trapezio',
         tips: 'Puxe ate a altura dos olhos e contraia'
       },
       {
@@ -384,7 +385,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Rosca-Direta-com-Halteres.gif',
+        image: `${W}/81/Biceps-curl-1.png`,
         muscle: 'Biceps',
         tips: 'Nao balance o corpo, mantenha os cotovelos fixos'
       },
@@ -394,7 +395,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Rosca-Martelo.gif',
+        image: `${W}/86/Bicep-hammer-curl-1.png`,
         muscle: 'Biceps, Antebraco',
         tips: 'Mantenha os punhos neutros'
       }
@@ -417,7 +418,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12',
         rest: '30s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Squat-Jump.gif',
+        image: `${W}/191/Front-squat-1-857x1024.png`,
         muscle: 'Pernas, Cardio',
         tips: 'Aterrisse suavemente e pule o mais alto possivel'
       },
@@ -427,7 +428,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '10-12',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Flexao-de-Bracos.gif',
+        image: `${W}/192/Bench-press-1.png`,
         muscle: 'Peito, Triceps, Core',
         tips: 'Use os joelhos no chao se precisar de apoio'
       },
@@ -437,7 +438,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10 cada perna',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Alternating-Jumping-Lunge.gif',
+        image: `${W}/113/Walking-lunges-4.png`,
         muscle: 'Pernas, Gluteos',
         tips: 'Troque as pernas no ar com controle'
       },
@@ -447,7 +448,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '10 cada lado',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Prancha-com-Rotacao.gif',
+        image: `${W}/128/Hyperextensions-2.png`,
         muscle: 'Core, Obliquos',
         tips: 'Gire o tronco e leve o braco ao teto'
       },
@@ -457,7 +458,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12',
         rest: '45s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Thruster-com-Halteres.gif',
+        image: `${W}/53/Shoulder-press-machine-1.png`,
         muscle: 'Corpo todo',
         tips: 'Use a forca das pernas para empurrar os halteres'
       },
@@ -467,8 +468,8 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Battle-Ropes.gif',
-        muscle: 'Braços, Core, Cardio',
+        image: `${W}/110/Reverse-grip-bent-over-rows-1.png`,
+        muscle: 'Bracos, Core, Cardio',
         tips: 'Alterne os bracos rapidamente e mantenha o core firme'
       }
     ]
