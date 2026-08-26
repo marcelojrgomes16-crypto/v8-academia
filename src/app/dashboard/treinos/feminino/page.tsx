@@ -519,7 +519,7 @@ export default function FemininoTreinosPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">Treinos Femininos</h1>
+            <h1 className="text-2xl font-bold text-white">Treinos</h1>
             <p className="text-gray-400 text-sm mt-1">Plano semanal completo com cardio</p>
           </div>
           <div className="flex items-center gap-2">
@@ -649,6 +649,7 @@ export default function FemininoTreinosPage() {
                       alt={exercise.name}
                       className="w-full h-full object-cover"
                       loading="lazy"
+                      referrerPolicy="no-referrer"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
                         target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23222" width="100" height="100"/><text fill="%23666" font-size="12" x="50" y="50" text-anchor="middle" dy=".3em">GIF</text></svg>'
@@ -700,6 +701,7 @@ export default function FemininoTreinosPage() {
                         src={exercise.image}
                         alt={`${exercise.name} demonstracao`}
                         className="w-full h-full object-contain"
+                        referrerPolicy="no-referrer"
                       />
                       <div className="absolute bottom-2 left-2">
                         <Badge className="bg-black/70 text-white text-xs">

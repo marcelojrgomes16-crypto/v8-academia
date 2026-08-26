@@ -72,7 +72,7 @@ export function TreinosList({ treinos, perfil }: TreinosPageProps) {
                     <Star className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-white">Treinos Femininos</h3>
+                    <h3 className="font-bold text-white">Treinos</h3>
                     <p className="text-white/80 text-sm">Plano semanal completo com cardio e imagens</p>
                   </div>
                   <Play className="h-5 w-5 text-white" />
