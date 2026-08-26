@@ -48,13 +48,27 @@ async function getAgendamentos(userId: string) {
 }
 
 export default async function AgendamentosPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
 
   if (!session?.user) {
     redirect('/entrar')
   }
 
-  const { proximos, anteriores } = await getAgendamentos(session.user.id)
+  let proximos: any[] = []
+  let anteriores: any[] = []
+
+  try {
+    const result = await getAgendamentos(session.user.id)
+    proximos = result.proximos
+    anteriores = result.anteriores
+  } catch (e) {
+    console.error('Agendamentos query error:', e)
+  }
 
   return (
     <DashboardLayout>

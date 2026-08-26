@@ -10,14 +10,24 @@ import { DollarSign, CheckCircle, Clock, AlertCircle } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function PagamentosPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const pagamentos = await prisma.pagamento.findMany({
-    where: { alunoId: session.user.id },
-    include: { plano: { select: { nome: true } } },
-    orderBy: { createdAt: 'desc' },
-  })
+  let pagamentos: any[] = []
+  try {
+    pagamentos = await prisma.pagamento.findMany({
+      where: { alunoId: session.user.id },
+      include: { plano: { select: { nome: true } } },
+      orderBy: { createdAt: 'desc' },
+    })
+  } catch (e) {
+    console.error('Pagamentos query error:', e)
+  }
 
   const totalPago = pagamentos
     .filter(p => p.status === 'PAGO')

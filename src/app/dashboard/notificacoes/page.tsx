@@ -17,18 +17,30 @@ const tipoConfig: Record<string, { label: string; variant: 'default' | 'info' | 
 }
 
 export default async function NotificacoesPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const [notificacoes, unreadCount] = await Promise.all([
-    prisma.notificacao.findMany({
-      where: { usuarioId: session.user.id },
-      orderBy: { createdAt: 'desc' },
-    }),
-    prisma.notificacao.count({
-      where: { usuarioId: session.user.id, lida: false },
-    }),
-  ])
+  let notificacoes: any[] = []
+  let unreadCount = 0
+
+  try {
+    ;[notificacoes, unreadCount] = await Promise.all([
+      prisma.notificacao.findMany({
+        where: { usuarioId: session.user.id },
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.notificacao.count({
+        where: { usuarioId: session.user.id, lida: false },
+      }),
+    ])
+  } catch (e) {
+    console.error('Notificacoes query error:', e)
+  }
 
   return (
     <DashboardLayout>

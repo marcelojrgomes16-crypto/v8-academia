@@ -12,29 +12,41 @@ import { Dumbbell, Calendar, ArrowRight } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
   const userId = session.user.id
   const hoje = new Date()
 
-  const [treinos, agendamentos] = await Promise.all([
-    prisma.treino.findMany({
-      where: { alunoId: userId, status: 'ATIVO' },
-      include: { exercicios: { include: { exercicio: true } } },
-      orderBy: { updatedAt: 'desc' },
-    }),
-    prisma.agendamento.findMany({
-      where: {
-        alunoId: userId,
-        status: { in: ['AGENDADO', 'CONFIRMADO'] },
-        dataHora: { gte: hoje },
-      },
-      include: { aula: true },
-      orderBy: { dataHora: 'asc' },
-      take: 3,
-    }),
-  ])
+  let treinos: any[] = []
+  let agendamentos: any[] = []
+
+  try {
+    ;[treinos, agendamentos] = await Promise.all([
+      prisma.treino.findMany({
+        where: { alunoId: userId, status: 'ATIVO' },
+        include: { exercicios: { include: { exercicio: true } } },
+        orderBy: { updatedAt: 'desc' },
+      }),
+      prisma.agendamento.findMany({
+        where: {
+          alunoId: userId,
+          status: { in: ['AGENDADO', 'CONFIRMADO'] },
+          dataHora: { gte: hoje },
+        },
+        include: { aula: true },
+        orderBy: { dataHora: 'asc' },
+        take: 3,
+      }),
+    ])
+  } catch (e) {
+    console.error('Dashboard query error:', e)
+  }
 
   const treinosHoje = treinos.filter((t) => {
     const dias = (t.diasSemana || []) as number[]

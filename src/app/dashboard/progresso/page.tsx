@@ -10,33 +10,46 @@ import { TrendingUp, Calendar, Target, Zap } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function ProgressoPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
   const userId = session.user.id
 
-  const [totalTreinos, totalCheckins, treinosConcluidos, avaliacaoRecente] = await Promise.all([
-    prisma.treino.count({ where: { alunoId: userId } }),
-    prisma.checkin.count({ where: { alunoId: userId } }),
-    prisma.treino.count({ where: { alunoId: userId, status: 'CONCLUIDO' } }),
-    prisma.avaliacaoFisica.findFirst({
+  let totalTreinos = 0, totalCheckins = 0, treinosConcluidos = 0, avaliacaoRecente: any = null
+  let treinos: any[] = []
+  let checkins: any[] = []
+
+  try {
+    ;[totalTreinos, totalCheckins, treinosConcluidos, avaliacaoRecente] = await Promise.all([
+      prisma.treino.count({ where: { alunoId: userId } }),
+      prisma.checkin.count({ where: { alunoId: userId } }),
+      prisma.treino.count({ where: { alunoId: userId, status: 'CONCLUIDO' } }),
+      prisma.avaliacaoFisica.findFirst({
+        where: { alunoId: userId },
+        orderBy: { data: 'desc' },
+      }),
+    ])
+
+    treinos = await prisma.treino.findMany({
       where: { alunoId: userId },
-      orderBy: { data: 'desc' },
-    }),
-  ])
+      include: { exercicios: true },
+      orderBy: { createdAt: 'desc' },
+      take: 5,
+    })
 
-  const treinos = await prisma.treino.findMany({
-    where: { alunoId: userId },
-    include: { exercicios: true },
-    orderBy: { createdAt: 'desc' },
-    take: 5,
-  })
-
-  const checkins = await prisma.checkin.findMany({
-    where: { alunoId: userId },
-    orderBy: { dataHora: 'desc' },
-    take: 10,
-  })
+    checkins = await prisma.checkin.findMany({
+      where: { alunoId: userId },
+      orderBy: { dataHora: 'desc' },
+      take: 10,
+    })
+  } catch (e) {
+    console.error('Progresso query error:', e)
+  }
 
   return (
     <DashboardLayout>

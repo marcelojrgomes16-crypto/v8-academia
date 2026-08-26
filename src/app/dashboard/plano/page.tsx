@@ -10,26 +10,38 @@ import { Calendar, Clock, CreditCard, CheckCircle } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function PlanoPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const aluno = await prisma.aluno.findFirst({
-    where: { usuarioId: session.user.id },
-    include: {
-      plano: true,
-      professor: {
-        select: { nome: true, cref: true },
+  let aluno: any = null
+  let pagamentosRecentes: any[] = []
+
+  try {
+    aluno = await prisma.aluno.findFirst({
+      where: { usuarioId: session.user.id },
+      include: {
+        plano: true,
+        professor: {
+          select: { nome: true, cref: true },
+        },
       },
-    },
-  })
+    })
 
-  if (!aluno) redirect('/dashboard')
+    if (!aluno) redirect('/dashboard')
 
-  const pagamentosRecentes = await prisma.pagamento.findMany({
-    where: { alunoId: session.user.id },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
-  })
+    pagamentosRecentes = await prisma.pagamento.findMany({
+      where: { alunoId: session.user.id },
+      orderBy: { createdAt: 'desc' },
+      take: 3,
+    })
+  } catch (e) {
+    console.error('Plano query error:', e)
+  }
 
   return (
     <DashboardLayout>

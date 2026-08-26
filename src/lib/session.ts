@@ -9,14 +9,14 @@ export interface SessionUser {
 }
 
 export async function getSession(): Promise<{ user: SessionUser } | null> {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('session')
-
-  if (!sessionCookie?.value) {
-    return null
-  }
-
   try {
+    const cookieStore = await cookies()
+    const sessionCookie = cookieStore.get('session')
+
+    if (!sessionCookie?.value) {
+      return null
+    }
+
     const user = JSON.parse(sessionCookie.value) as SessionUser
     return { user }
   } catch {

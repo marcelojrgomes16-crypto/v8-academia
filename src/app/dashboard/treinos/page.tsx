@@ -6,24 +6,36 @@ import { TreinosList } from './treinos-list'
 export const dynamic = 'force-dynamic'
 
 export default async function TreinosPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const usuario = await prisma.usuario.findUnique({
-    where: { id: session.user.id },
-    select: { genero: true },
-  })
+  let usuario: any = null
+  let treinos: any[] = []
 
-  const treinos = await prisma.treino.findMany({
-    where: { alunoId: session.user.id },
-    include: {
-      exercicios: {
-        include: { exercicio: true },
-        orderBy: { ordem: 'asc' },
+  try {
+    usuario = await prisma.usuario.findUnique({
+      where: { id: session.user.id },
+      select: { genero: true },
+    })
+
+    treinos = await prisma.treino.findMany({
+      where: { alunoId: session.user.id },
+      include: {
+        exercicios: {
+          include: { exercicio: true },
+          orderBy: { ordem: 'asc' },
+        },
       },
-    },
-    orderBy: { createdAt: 'desc' },
-  })
+      orderBy: { createdAt: 'desc' },
+    })
+  } catch (e) {
+    console.error('Treinos query error:', e)
+  }
 
   return <TreinosList treinos={treinos} perfil={usuario?.genero || 'MASCULINO'} />
 }

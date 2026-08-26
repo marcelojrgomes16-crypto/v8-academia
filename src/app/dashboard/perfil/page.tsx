@@ -10,19 +10,29 @@ import { Separator } from '@/components/ui/separator'
 export const dynamic = 'force-dynamic'
 
 export default async function PerfilPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const usuario = await prisma.usuario.findUnique({
-    where: { id: session.user.id },
-    include: {
-      aluno: {
-        include: {
-          plano: true,
+  let usuario: any = null
+  try {
+    usuario = await prisma.usuario.findUnique({
+      where: { id: session.user.id },
+      include: {
+        aluno: {
+          include: {
+            plano: true,
+          },
         },
       },
-    },
-  })
+    })
+  } catch (e) {
+    console.error('Perfil query error:', e)
+  }
 
   if (!usuario) redirect('/entrar')
 

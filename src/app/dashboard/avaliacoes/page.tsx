@@ -10,14 +10,24 @@ import { TrendingUp, Ruler, Weight, Droplets, Dumbbell } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function AvaliacoesPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const avaliacoes = await prisma.avaliacaoFisica.findMany({
-    where: { alunoId: session.user.id },
-    include: { professor: { select: { nome: true } } },
-    orderBy: { data: 'desc' },
-  })
+  let avaliacoes: any[] = []
+  try {
+    avaliacoes = await prisma.avaliacaoFisica.findMany({
+      where: { alunoId: session.user.id },
+      include: { professor: { select: { nome: true } } },
+      orderBy: { data: 'desc' },
+    })
+  } catch (e) {
+    console.error('Avaliacoes query error:', e)
+  }
 
   return (
     <DashboardLayout>

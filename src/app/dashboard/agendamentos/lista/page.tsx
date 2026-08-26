@@ -12,14 +12,24 @@ import { Calendar, Clock, Plus } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function AgendamentosListaPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const agendamentos = await prisma.agendamento.findMany({
-    where: { alunoId: session.user.id },
-    include: { aula: true, professor: { select: { nome: true } } },
-    orderBy: { dataHora: 'desc' },
-  })
+  let agendamentos: any[] = []
+  try {
+    agendamentos = await prisma.agendamento.findMany({
+      where: { alunoId: session.user.id },
+      include: { aula: true, professor: { select: { nome: true } } },
+      orderBy: { dataHora: 'desc' },
+    })
+  } catch (e) {
+    console.error('Agendamentos lista query error:', e)
+  }
 
   const statusVariant: Record<string, 'success' | 'warning' | 'destructive' | 'info'> = {
     AGENDADO: 'info',

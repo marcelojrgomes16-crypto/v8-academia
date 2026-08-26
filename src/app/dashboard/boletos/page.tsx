@@ -11,13 +11,23 @@ import { BoletoActions } from './boleto-actions'
 export const dynamic = 'force-dynamic'
 
 export default async function BoletosPage() {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
-  const cobrancas = await prisma.cobranca.findMany({
-    where: { alunoId: session.user.id },
-    orderBy: { dataVencimento: 'desc' },
-  })
+  let cobrancas: any[] = []
+  try {
+    cobrancas = await prisma.cobranca.findMany({
+      where: { alunoId: session.user.id },
+      orderBy: { dataVencimento: 'desc' },
+    })
+  } catch (e) {
+    console.error('Boletos query error:', e)
+  }
 
   const totalPendente = cobrancas
     .filter(c => c.status === 'PENDENTE' || c.status === 'ATRASADO')

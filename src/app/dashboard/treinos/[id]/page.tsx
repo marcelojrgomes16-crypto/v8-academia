@@ -10,22 +10,33 @@ import { ExerciseCard } from './exercise-card'
 export const dynamic = 'force-dynamic'
 
 export default async function TreinoDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession()
+  let session
+  try {
+    session = await getSession()
+  } catch {
+    redirect('/entrar')
+  }
   if (!session) redirect('/entrar')
 
   const { id } = await params
-  const treino = await prisma.treino.findFirst({
-    where: { id, alunoId: session.user.id },
-    include: {
-      exercicios: {
-        include: { exercicio: true },
-        orderBy: { ordem: 'asc' },
+
+  let treino: any = null
+  try {
+    treino = await prisma.treino.findFirst({
+      where: { id, alunoId: session.user.id },
+      include: {
+        exercicios: {
+          include: { exercicio: true },
+          orderBy: { ordem: 'asc' },
+        },
+        professor: {
+          select: { nome: true },
+        },
       },
-      professor: {
-        select: { nome: true },
-      },
-    },
-  })
+    })
+  } catch (e) {
+    console.error('Treino detail query error:', e)
+  }
 
   if (!treino) redirect('/dashboard/treinos')
 
