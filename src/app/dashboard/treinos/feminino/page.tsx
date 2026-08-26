@@ -480,6 +480,27 @@ export default function FemininoTreinosPage() {
   const [selectedDay, setSelectedDay] = React.useState<string>('segunda')
   const [expandedExercise, setExpandedExercise] = React.useState<string | null>(null)
   const [completedExercises, setCompletedExercises] = React.useState<Set<string>>(new Set())
+  const [workoutActive, setWorkoutActive] = React.useState(false)
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem('v8-treino-progress')
+    if (saved) {
+      try {
+        const data = JSON.parse(saved)
+        setCompletedExercises(new Set(data.completed || []))
+        if (data.activeDay) setSelectedDay(data.activeDay)
+        if (data.active) setWorkoutActive(true)
+      } catch {}
+    }
+  }, [])
+
+  React.useEffect(() => {
+    localStorage.setItem('v8-treino-progress', JSON.stringify({
+      completed: Array.from(completedExercises),
+      activeDay: selectedDay,
+      active: workoutActive,
+    }))
+  }, [completedExercises, selectedDay, workoutActive])
 
   const currentDay = workoutData.find(d => d.id === selectedDay)
   const currentDayIndex = workoutData.findIndex(d => d.id === selectedDay)
@@ -513,6 +534,10 @@ export default function FemininoTreinosPage() {
   const completedCount = currentDay?.exercises.filter(e => completedExercises.has(e.id)).length || 0
   const totalCount = currentDay?.exercises.length || 0
   const progressPercent = totalCount > 0 ? (completedCount / totalCount) * 100 : 0
+  const allDaysCompleted = workoutData.every(day => {
+    const dayCompleted = day.exercises.filter(e => completedExercises.has(e.id)).length
+    return dayCompleted === day.exercises.length
+  })
 
   return (
     <DashboardLayout>
@@ -523,11 +548,24 @@ export default function FemininoTreinosPage() {
             <h1 className="text-2xl font-bold text-white">Treinos</h1>
             <p className="text-gray-400 text-sm mt-1">Plano semanal completo com cardio</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-yellow-500" />
-            <span className="text-sm text-gray-400">
-              {completedExercises.size} exercicios concluidos
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Star className="h-5 w-5 text-yellow-500" />
+              <span className="text-sm text-gray-400">
+                {completedExercises.size} exercicios concluidos
+              </span>
+            </div>
+            <Button
+              variant={workoutActive ? 'destructive' : 'default'}
+              size="sm"
+              onClick={() => setWorkoutActive(!workoutActive)}
+              className={`font-bold ${workoutActive
+                ? 'bg-red-600 hover:bg-red-700'
+                : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'
+              }`}
+            >
+              {workoutActive ? 'Parar Treino' : 'Iniciar Treino'}
+            </Button>
           </div>
         </div>
 
