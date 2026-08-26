@@ -5,12 +5,11 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Dumbbell, Play } from 'lucide-react'
+import { Dumbbell, Play, Star } from 'lucide-react'
 import Link from 'next/link'
 
 interface Exercicio {
   id: string
-  nome: string
   series: number
   repeticoes: string
   carga: string | null
@@ -62,6 +61,26 @@ export function TreinosList({ treinos, perfil }: TreinosPageProps) {
             {perfil === 'MASCULINO' ? 'Foco em forca e massa muscular' : 'Foco em tonificacao e resistencia'}
           </p>
         </div>
+
+        {/* Link for female workouts */}
+        {perfil === 'FEMININO' && (
+          <Link href="/dashboard/treinos/feminino">
+            <Card className="overflow-hidden border-pink-500/30 hover:border-pink-500/50 transition-all cursor-pointer">
+              <div className="bg-gradient-to-r from-pink-600 to-rose-600 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <Star className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-white">Treinos Femininos</h3>
+                    <p className="text-white/80 text-sm">Plano semanal completo com cardio e imagens</p>
+                  </div>
+                  <Play className="h-5 w-5 text-white" />
+                </div>
+              </div>
+            </Card>
+          </Link>
+        )}
 
         <div className="flex gap-2 flex-wrap">
           {['TODOS', 'ATIVO', 'PAUSADO', 'CONCLUIDO'].map((f) => (

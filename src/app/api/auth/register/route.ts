@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         genero: genero || null,
         senhaHash,
         role: 'ALUNO',
-        status: 'PENDENTE',
+        status: 'ATIVO',
         aluno: {
           create: {
             matricula,

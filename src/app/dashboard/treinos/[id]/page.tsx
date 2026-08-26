@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Play } from 'lucide-react'
 import { ExerciseCard } from './exercise-card'
 
 export const dynamic = 'force-dynamic'
@@ -34,20 +34,28 @@ export default async function TreinoDetailPage({ params }: { params: Promise<{ i
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex items-center gap-2 sm:gap-4">
-          <Link href="/dashboard/treinos">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1 sm:mr-2" />
-              Voltar
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <Link href="/dashboard/treinos">
+              <Button variant="ghost" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-1 sm:mr-2" />
+                Voltar
+              </Button>
+            </Link>
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-2xl font-bold text-white truncate">{treino.nome}</h1>
+              <p className="text-gray-400 text-xs sm:text-sm">
+                {treino.exercicios.length} exercicios &bull; {totalSeries} series
+                {treino.professor?.nome && ` \u2022 Prof. ${treino.professor.nome}`}
+              </p>
+            </div>
+          </div>
+          <Link href={`/dashboard/treinos/${treino.id}/executar`}>
+            <Button className="bg-red-600 hover:bg-red-700 gap-1.5">
+              <Play className="h-4 w-4" />
+              Iniciar
             </Button>
           </Link>
-          <div className="min-w-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">{treino.nome}</h1>
-            <p className="text-gray-400 text-xs sm:text-sm">
-              {treino.exercicios.length} exercicios &bull; {totalSeries} series
-              {treino.professor?.nome && ` \u2022 Prof. ${treino.professor.nome}`}
-            </p>
-          </div>
         </div>
 
         {treino.descricao && (
