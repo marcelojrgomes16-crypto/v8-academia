@@ -184,7 +184,18 @@ export async function GET(request: NextRequest) {
         logs.push(`Erro ao criar Maria: ${e?.message || String(e)}`)
       }
     } else {
-      logs.push('Maria ja existia ou professor nao encontrado')
+      if (mariaExists && mariaExists.status !== 'ATIVO') {
+        await prisma.usuario.update({ where: { id: mariaExists.id }, data: { status: 'ATIVO' } })
+        logs.push('Maria ativada (status alterado para ATIVO)')
+      } else {
+        logs.push('Maria ja existia ou professor nao encontrado')
+      }
+    }
+
+    const pendentes = await prisma.usuario.findMany({ where: { status: 'PENDENTE' } })
+    if (pendentes.length > 0) {
+      await prisma.usuario.updateMany({ where: { status: 'PENDENTE' }, data: { status: 'ATIVO' } })
+      logs.push(`${pendentes.length} usuario(s) pendente(s) ativado(s)`)
     }
 
     return NextResponse.json({
