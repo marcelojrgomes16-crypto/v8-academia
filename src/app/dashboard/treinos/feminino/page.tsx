@@ -34,7 +34,7 @@ interface WorkoutDay {
   exercises: Exercise[]
 }
 
-const W = 'https://wger.de/media/exercise-images'
+const W = 'https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0'
 const workoutData: WorkoutDay[] = [
   {
     id: 'segunda',
@@ -53,7 +53,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/191/Front-squat-1-857x1024.png`,
+        image: `${W}/glutes/barbell-sumo-deadlift.gif`,
         muscle: 'Gluteos, Adutores',
         tips: 'Mantenha as costas retas e joelhos alinhados com os pes'
       },
@@ -63,7 +63,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/161/Dead-lifts-2.png`,
+        image: `${W}/glutes/resistance-band-hip-thrusts-on-knees-female.gif`,
         muscle: 'Gluteos',
         tips: 'Empurre os quadris para cima e contraia os gluteos no topo'
       },
@@ -73,7 +73,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '60s',
-        image: `${W}/161/Dead-lifts-1.png`,
+        image: `${W}/glutes/band-stiff-leg-deadlift.gif`,
         muscle: 'Posterior, Lombar',
         tips: 'Mantenha leve flexao nos joelhos e desca devagar'
       },
@@ -83,7 +83,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15-20',
         rest: '45s',
-        image: `${W}/148/lateral-dumbbell-raises-large-1.png`,
+        image: `${W}/glutes/band-pull-through.gif`,
         muscle: 'Gluteo Medio',
         tips: 'Controle o movimento e nao Use impulso'
       },
@@ -93,7 +93,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/128/Hyperextensions-1.png`,
+        image: `${W}/glutes/barbell-glute-bridge-two-legs-on-bench-male.gif`,
         muscle: 'Gluteos, Abdomen',
         tips: 'Contraia o abdome no topo do movimento'
       },
@@ -103,7 +103,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: `${W}/109/Barbell-rear-delt-row-1.png`,
+        image: `${W}/glutes/band-pull-through.gif`,
         muscle: 'Posterior, Gluteos',
         tips: 'Mantenha os bracos esticados e mova os quadris'
       }
@@ -126,7 +126,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/97/Dumbbell-bench-press-1.png`,
+        image: `${W}/pectorals/dumbbell-press-on-exercise-ball.gif`,
         muscle: 'Peito, Triceps',
         tips: 'Desca os halteres devagar e empurre com controle'
       },
@@ -136,7 +136,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/123/dumbbell-shoulder-press-large-1.png`,
+        image: `${W}/biceps/dumbbell-seated-biceps-curl-to-shoulder-press.gif`,
         muscle: 'Ombros, Trapezio',
         tips: 'Nao travar os cotovelos no topo'
       },
@@ -146,7 +146,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/98/Butterfly-machine-1.png`,
+        image: `${W}/pectorals/band-bench-press.gif`,
         muscle: 'Peito',
         tips: 'Mantenha leve flexao nos cotovelos'
       },
@@ -156,7 +156,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/83/Bench-dips-1.png`,
+        image: `${W}/triceps/cable-one-arm-tricep-pushdown.gif`,
         muscle: 'Triceps',
         tips: 'Mantenha os cotovelos fixos ao lado do corpo'
       },
@@ -166,7 +166,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '30-45s',
         rest: '45s',
-        image: `${W}/91/Crunches-1.png`,
+        image: `${W}/abs/bodyweight-incline-side-plank.gif`,
         muscle: 'Core, Abdomen',
         tips: 'Mantenha o corpo reto como uma tabua'
       },
@@ -176,7 +176,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: `${W}/176/Cross-body-crunch-1.png`,
+        image: `${W}/abs/assisted-motion-russian-twist.gif`,
         muscle: 'Obliquos, Abdomen',
         tips: 'Gire o tronco completamente'
       }
@@ -199,7 +199,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '45s',
-        image: `${W}/113/Walking-lunges-1.png`,
+        image: `${W}/cardio/burpee.gif`,
         muscle: 'Corpo todo',
         tips: 'Pise para frente ao inves de pular se estiver iniciando'
       },
@@ -209,7 +209,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: `${W}/93/Decline-crunch-1.png`,
+        image: `${W}/abs/bridge-mountain-climber-cross-body.gif`,
         muscle: 'Core, Cardio',
         tips: 'Mantenha o quadril baixo e o ritmo alto'
       },
@@ -219,7 +219,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: `${W}/91/Crunches-2.png`,
+        image: `${W}/cardio/walking-high-knees-lunge.gif`,
         muscle: 'Cardio, Pernas',
         tips: 'Mantenha o ritmo constante'
       },
@@ -229,7 +229,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '20 (10 cada lado)',
         rest: '45s',
-        image: `${W}/176/Cross-body-crunch-2.png`,
+        image: `${W}/abs/band-bicycle-crunch.gif`,
         muscle: 'Abdomen, Obliquos',
         tips: 'Encoste o cotovelo no joelho oposto'
       },
@@ -239,7 +239,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: `${W}/125/Leg-raises-1.png`,
+        image: `${W}/abs/assisted-lying-leg-raise-with-lateral-throw-down.gif`,
         muscle: 'Abdomen Inferior',
         tips: 'Controle a descida para ativar mais o abdome'
       },
@@ -249,7 +249,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: `${W}/113/Walking-lunges-2.png`,
+        image: `${W}/cardio/walking-high-knees-lunge.gif`,
         muscle: 'Cardio, Pernas',
         tips: 'Leve os joelhos ao peito rapidamente'
       }
@@ -272,7 +272,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/191/Front-squat-2-857x1024.png`,
+        image: `${W}/glutes/dumbbell-squat.gif`,
         muscle: 'Quadriceps, Gluteos',
         tips: 'Desca ate paralelo e mantenha o peito aberto'
       },
@@ -282,7 +282,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/130/Narrow-stance-hack-squats-1-1024x721.png`,
+        image: `${W}/glutes/lever-horizontal-one-leg-press.gif`,
         muscle: 'Quadriceps, Gluteos',
         tips: 'Nao trave os joelhos no topo'
       },
@@ -292,7 +292,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12 cada perna',
         rest: '60s',
-        image: `${W}/113/Walking-lunges-3.png`,
+        image: `${W}/glutes/dumbbell-lunge.gif`,
         muscle: 'Quadriceps, Gluteos',
         tips: 'Mantenha o tronco ereto e desca devagar'
       },
@@ -302,7 +302,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/154/lying-leg-curl-machine-large-1.png`,
+        image: `${W}/hamstrings/cable-assisted-inverse-leg-curl.gif`,
         muscle: 'Posterior, Isquiotibiais',
         tips: 'Controle o movimento nas duas fases'
       },
@@ -312,7 +312,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15-20',
         rest: '45s',
-        image: `${W}/148/lateral-dumbbell-raises-large-2.png`,
+        image: `${W}/glutes/band-pull-through.gif`,
         muscle: 'Gluteo Medio',
         tips: 'Foque na contracao no topo'
       },
@@ -322,7 +322,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '15-20',
         rest: '45s',
-        image: `${W}/119/seated-barbell-shoulder-press-large-1.png`,
+        image: `${W}/calves/band-single-leg-calf-raise.gif`,
         muscle: 'Panturrilhas',
         tips: 'Suba totalmente e desca devagar'
       }
@@ -345,7 +345,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12-15',
         rest: '60s',
-        image: `${W}/143/Cable-seated-rows-1.png`,
+        image: `${W}/lats/cable-lat-pulldown-full-range-of-motion.gif`,
         muscle: 'Costas, Biceps',
         tips: 'Puxe ate o peito e contraia as escapulas'
       },
@@ -355,7 +355,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10-12',
         rest: '60s',
-        image: `${W}/106/T-bar-row-1.png`,
+        image: `${W}/upper-back/barbell-bent-over-row.gif`,
         muscle: 'Costas, Trapezio',
         tips: 'Mantenha as costas retas e puxe com os cotovelos'
       },
@@ -365,7 +365,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12 cada lado',
         rest: '45s',
-        image: `${W}/143/Cable-seated-rows-2.png`,
+        image: `${W}/upper-back/bodyweight-standing-close-grip-one-arm-row.gif`,
         muscle: 'Costas, Core',
         tips: 'Nao gire o tronco, mantenha estavel'
       },
@@ -375,7 +375,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '15',
         rest: '45s',
-        image: `${W}/109/Barbell-rear-delt-row-2.png`,
+        image: `${W}/upper-back/barbell-bent-over-row.gif`,
         muscle: 'Posterior Ombro, Trapezio',
         tips: 'Puxe ate a altura dos olhos e contraia'
       },
@@ -385,7 +385,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/81/Biceps-curl-1.png`,
+        image: `${W}/biceps/barbell-curl.gif`,
         muscle: 'Biceps',
         tips: 'Nao balance o corpo, mantenha os cotovelos fixos'
       },
@@ -395,7 +395,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '12-15',
         rest: '45s',
-        image: `${W}/86/Bicep-hammer-curl-1.png`,
+        image: `${W}/biceps/cable-hammer-curl-with-rope.gif`,
         muscle: 'Biceps, Antebraco',
         tips: 'Mantenha os punhos neutros'
       }
@@ -418,7 +418,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12',
         rest: '30s',
-        image: `${W}/191/Front-squat-1-857x1024.png`,
+        image: `${W}/quads/barbell-squat-jump-step-rear-lunge.gif`,
         muscle: 'Pernas, Cardio',
         tips: 'Aterrisse suavemente e pule o mais alto possivel'
       },
@@ -428,7 +428,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '10-12',
         rest: '45s',
-        image: `${W}/192/Bench-press-1.png`,
+        image: `${W}/glutes/outside-leg-kick-push-up.gif`,
         muscle: 'Peito, Triceps, Core',
         tips: 'Use os joelhos no chao se precisar de apoio'
       },
@@ -438,7 +438,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '10 cada perna',
         rest: '45s',
-        image: `${W}/113/Walking-lunges-4.png`,
+        image: `${W}/glutes/barbell-lateral-lunge.gif`,
         muscle: 'Pernas, Gluteos',
         tips: 'Troque as pernas no ar com controle'
       },
@@ -448,7 +448,7 @@ const workoutData: WorkoutDay[] = [
         sets: 3,
         reps: '10 cada lado',
         rest: '45s',
-        image: `${W}/128/Hyperextensions-2.png`,
+        image: `${W}/abs/bodyweight-incline-side-plank.gif`,
         muscle: 'Core, Obliquos',
         tips: 'Gire o tronco e leve o braco ao teto'
       },
@@ -458,7 +458,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '12',
         rest: '45s',
-        image: `${W}/53/Shoulder-press-machine-1.png`,
+        image: `${W}/biceps/dumbbell-seated-biceps-curl-to-shoulder-press.gif`,
         muscle: 'Corpo todo',
         tips: 'Use a forca das pernas para empurrar os halteres'
       },
@@ -468,7 +468,7 @@ const workoutData: WorkoutDay[] = [
         sets: 4,
         reps: '30s',
         rest: '30s',
-        image: `${W}/110/Reverse-grip-bent-over-rows-1.png`,
+        image: `${W}/cardio/burpee.gif`,
         muscle: 'Bracos, Core, Cardio',
         tips: 'Alterne os bracos rapidamente e mantenha o core firme'
       }
