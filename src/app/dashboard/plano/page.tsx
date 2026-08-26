@@ -32,8 +32,6 @@ export default async function PlanoPage() {
       },
     })
 
-    if (!aluno) redirect('/dashboard')
-
     pagamentosRecentes = await prisma.pagamento.findMany({
       where: { alunoId: session.user.id },
       orderBy: { createdAt: 'desc' },
@@ -42,6 +40,8 @@ export default async function PlanoPage() {
   } catch (e) {
     console.error('Plano query error:', e)
   }
+
+  if (!aluno) redirect('/dashboard')
 
   return (
     <DashboardLayout>
