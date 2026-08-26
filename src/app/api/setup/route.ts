@@ -137,6 +137,38 @@ export async function GET(request: NextRequest) {
       } catch (e: any) {
         logs.push(`Erro ao criar Joao: ${e?.message || String(e)}`)
       }
+    } else if (joaoExists && profRef && pl1) {
+      const joaoTreinos = await prisma.treino.count({ where: { alunoId: joaoExists.id } })
+      if (joaoTreinos === 0) {
+        try {
+          const t1 = await prisma.treino.create({ data: { nome: 'Treino A - Peito e Triceps', descricao: 'Treino focado em peito e triceps', alunoId: joaoExists.id, professorId: profRef.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
+          const exercises1 = [
+            { ex: exByName('Supino Reto'), s: 4, r: '8-12', c: '60kg', d: 90 },
+            { ex: exByName('Triceps Pulley'), s: 3, r: '12-15', c: '25kg', d: 60 },
+            { ex: exByName('Desenvolvimento'), s: 3, r: '10-12', c: '20kg', d: 60 },
+            { ex: exByName('Abdominal Crunch'), s: 3, r: '20', c: 'Corpo', d: 45 },
+          ]
+          for (let i = 0; i < exercises1.length; i++) {
+            const e = exercises1[i]
+            if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t1.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
+          }
+          const t2 = await prisma.treino.create({ data: { nome: 'Treino B - Pernas', descricao: 'Treino completo de pernas e gluteos', alunoId: joaoExists.id, professorId: profRef.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4] } })
+          const ex2 = [
+            { ex: exByName('Agachamento'), s: 4, r: '8-10', c: '80kg', d: 120 },
+            { ex: exByName('Leg Press'), s: 4, r: '10-12', c: '120kg', d: 90 },
+            { ex: exByName('Elevacao Lateral'), s: 3, r: '12-15', c: '10kg', d: 60 },
+          ]
+          for (let i = 0; i < ex2.length; i++) {
+            const e = ex2[i]
+            if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t2.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
+          }
+          logs.push('Treinos do Joao criados (usuario ja existia)')
+        } catch (e: any) {
+          logs.push(`Erro ao criar treinos do Joao: ${e?.message || String(e)}`)
+        }
+      } else {
+        logs.push('Joao ja existia com treinos')
+      }
     } else {
       logs.push('Joao ja existia ou professor nao encontrado')
     }
@@ -182,6 +214,42 @@ export async function GET(request: NextRequest) {
         logs.push('Aluna Maria criada com treinos e boletos')
       } catch (e: any) {
         logs.push(`Erro ao criar Maria: ${e?.message || String(e)}`)
+      }
+    } else if (mariaExists && profRef2 && pl1) {
+      if (mariaExists.status !== 'ATIVO') {
+        await prisma.usuario.update({ where: { id: mariaExists.id }, data: { status: 'ATIVO' } })
+        logs.push('Maria ativada (status alterado para ATIVO)')
+      }
+      const mariaTreinos = await prisma.treino.count({ where: { alunoId: mariaExists.id } })
+      if (mariaTreinos === 0) {
+        try {
+          const t3 = await prisma.treino.create({ data: { nome: 'Treino A - Tonificacao', descricao: 'Treino focado em tonificacao e resistencia', alunoId: mariaExists.id, professorId: profRef2.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [1, 3, 5] } })
+          const ex3 = [
+            { ex: exByName('Puxada Frontal'), s: 3, r: '12-15', c: '30kg', d: 60 },
+            { ex: exByName('Rosca Direta'), s: 3, r: '12-15', c: '10kg', d: 45 },
+            { ex: exByName('Abdominal Crunch'), s: 3, r: '20', c: 'Corpo', d: 30 },
+            { ex: exByName('Remada Curvada'), s: 3, r: '12-15', c: '25kg', d: 60 },
+          ]
+          for (let i = 0; i < ex3.length; i++) {
+            const e = ex3[i]
+            if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t3.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
+          }
+          const t4 = await prisma.treino.create({ data: { nome: 'Treino B - Cardio e Core', descricao: 'Treino funcional com foco em cardio e core', alunoId: mariaExists.id, professorId: profRef2.id, status: 'ATIVO', dataInicio: new Date(), diasSemana: [2, 4, 6] } })
+          const ex4 = [
+            { ex: exByName('Agachamento'), s: 3, r: '15-20', c: '20kg', d: 45 },
+            { ex: exByName('Elevacao Lateral'), s: 3, r: '15', c: '5kg', d: 30 },
+            { ex: exByName('Abdominal Crunch'), s: 4, r: '25', c: 'Corpo', d: 30 },
+          ]
+          for (let i = 0; i < ex4.length; i++) {
+            const e = ex4[i]
+            if (e.ex) await prisma.exercicioTreino.create({ data: { treinoId: t4.id, exercicioId: e.ex.id, series: e.s, repeticoes: e.r, carga: e.c, descanso: e.d, ordem: i + 1 } })
+          }
+          logs.push('Treinos da Maria criados (usuario ja existia)')
+        } catch (e: any) {
+          logs.push(`Erro ao criar treinos da Maria: ${e?.message || String(e)}`)
+        }
+      } else {
+        logs.push('Maria ja existia com treinos')
       }
     } else {
       if (mariaExists && mariaExists.status !== 'ATIVO') {
